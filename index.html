@@ -1,11 +1,542 @@
 <!DOCTYPE html>
-<html lang='en'>
-  <head>
-    <title> C.V </title>
-  </head>
-  <body>
-    
-    Hello <a href='./page.html'>world</a>!
-    
-  </body>
-</html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Precious Onifade — Full-Stack Software Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f5f4f0;
+    --ink:#101010;
+    --ink-soft:#4a4a46;
+    --wire:#cfccc2;
+    --wire-soft:#e2e0d8;
+    --glitch:#2f5bff;
+    --glitch-2:#ff2e63;
+    --max:680px;
+    --edge:32px;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Space Grotesk', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.55;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
+  }
+
+  .page{
+    max-width:var(--max);
+    margin:0 auto;
+    padding:96px var(--edge) 64px;
+  }
+
+  /* ---------- hero ---------- */
+
+  .hero{
+    margin-bottom:88px;
+  }
+
+  .name-wrap{
+    position:relative;
+    display:inline-block;
+    isolation:isolate;
+    cursor:pointer;
+  }
+
+  h1{
+    font-size:clamp(2.4rem, 7vw, 3.6rem);
+    font-weight:700;
+    letter-spacing:-0.02em;
+    line-height:1.02;
+    margin:0;
+    position:relative;
+    color:var(--ink);
+  }
+
+  h1 .layer{
+    position:absolute;
+    inset:0;
+    margin:0;
+    font:inherit;
+    letter-spacing:inherit;
+    pointer-events:none;
+  }
+
+  h1 .layer-b{ color:var(--glitch); mix-blend-mode:multiply; }
+  h1 .layer-c{ color:var(--glitch-2); mix-blend-mode:multiply; }
+
+  .name-wrap.settle h1 .layer-b{
+    animation: split-b 1.1s cubic-bezier(.2,.9,.2,1) 1 both;
+  }
+  .name-wrap.settle h1 .layer-c{
+    animation: split-c 1.1s cubic-bezier(.2,.9,.2,1) 1 both;
+  }
+
+  /* interactive: once settled, the split follows the cursor */
+  .name-wrap.live h1 .layer-b{
+    transform:translate(var(--gx, 0px), var(--gy, 0px));
+    opacity:.55;
+    transition:transform .06s linear, opacity .15s ease;
+  }
+  .name-wrap.live h1 .layer-c{
+    transform:translate(calc(var(--gx, 0px) * -1), calc(var(--gy, 0px) * -1));
+    opacity:.45;
+    transition:transform .06s linear, opacity .15s ease;
+  }
+  .name-wrap:not(.live) h1 .layer-b,
+  .name-wrap:not(.live):not(.settle) h1 .layer-c{
+    opacity:0;
+  }
+
+  @keyframes split-b{
+    0%   { transform:translate(0,0); opacity:0; }
+    12%  { transform:translate(6px,-3px); opacity:.85; }
+    30%  { transform:translate(-4px,2px); opacity:.7; }
+    48%  { transform:translate(3px,-1px); opacity:.6; }
+    100% { transform:translate(0,0); opacity:0; }
+  }
+  @keyframes split-c{
+    0%   { transform:translate(0,0); opacity:0; }
+    14%  { transform:translate(-5px,3px); opacity:.8; }
+    32%  { transform:translate(4px,-2px); opacity:.65; }
+    50%  { transform:translate(-2px,1px); opacity:.5; }
+    100% { transform:translate(0,0); opacity:0; }
+  }
+
+  .role-comment{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.92rem;
+    color:var(--ink-soft);
+    margin-top:18px;
+  }
+  .role-comment .tok{ color:var(--glitch); }
+
+  .tagline{
+    margin-top:22px;
+    font-size:1.15rem;
+    max-width:52ch;
+    color:var(--ink);
+  }
+
+  .tagline .sep{
+    color:var(--wire);
+    padding:0 8px;
+  }
+
+  .hint{
+    margin-top:14px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    color:var(--wire);
+    letter-spacing:0.01em;
+  }
+
+  .cta-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-top:32px;
+  }
+
+  .cta{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.85rem;
+    text-decoration:none;
+    padding:12px 20px;
+    border:1px solid var(--ink);
+    color:var(--ink);
+    position:relative;
+    overflow:hidden;
+    transition:color .3s ease;
+  }
+
+  .cta span{ position:relative; z-index:1; }
+
+  .cta::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:var(--ink);
+    transform:translateY(101%);
+    transition:transform .3s cubic-bezier(.2,.9,.2,1);
+    z-index:0;
+  }
+
+  .cta:hover{ color:var(--paper); }
+  .cta:hover::before{ transform:translateY(0); }
+
+  .cta.primary{
+    border-color:var(--glitch);
+    color:var(--glitch);
+  }
+  .cta.primary::before{ background:var(--glitch); }
+  .cta.primary:hover{ color:var(--paper); }
+
+  /* ---------- structure ---------- */
+
+  section{
+    padding:40px 0;
+    border-top:1px solid var(--wire);
+  }
+
+  section:first-of-type{
+    border-top:1px solid var(--wire);
+  }
+
+  .marker{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.85rem;
+    color:var(--glitch);
+    margin:0 0 20px;
+  }
+
+  .marker::before{
+    content:"// ";
+    color:var(--wire);
+  }
+
+  section p{
+    margin:0 0 14px;
+    max-width:64ch;
+    color:var(--ink);
+  }
+
+  section p:last-child{ margin-bottom:0; }
+
+  /* ---------- experience ---------- */
+
+  .role{
+    padding:22px 0;
+  }
+  .role + .role{
+    border-top:1px dashed var(--wire-soft);
+  }
+
+  .role-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    flex-wrap:wrap;
+    gap:6px 16px;
+    margin-bottom:8px;
+  }
+
+  .role-title{
+    font-weight:600;
+    font-size:1.05rem;
+    position:relative;
+    text-decoration:none;
+    color:var(--ink);
+  }
+
+  .role-title .underline{
+    display:block;
+    height:1px;
+    background:var(--glitch);
+    width:0%;
+    transition:width .35s ease;
+  }
+
+  .role:hover .role-title .underline{ width:100%; }
+
+  .role-meta{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.8rem;
+    color:var(--ink-soft);
+    white-space:nowrap;
+  }
+
+  .role ul{
+    margin:10px 0 0;
+    padding-left:18px;
+    color:var(--ink-soft);
+  }
+  .role li{ margin-bottom:6px; }
+  .role li::marker{ color:var(--wire); }
+
+  /* ---------- skills ---------- */
+
+  .skill-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(140px, 1fr));
+    gap:0;
+    border:1px solid var(--wire-soft);
+  }
+
+  .skill-group{
+    padding:16px 18px;
+    border-right:1px solid var(--wire-soft);
+    border-bottom:1px solid var(--wire-soft);
+  }
+
+  .skill-group:last-child{ border-right:none; }
+
+  .skill-group h3{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    font-weight:500;
+    color:var(--ink-soft);
+    margin:0 0 10px;
+  }
+
+  .skill-group ul{
+    list-style:none;
+    margin:0; padding:0;
+    font-size:0.92rem;
+  }
+  .skill-group li{ margin-bottom:5px; }
+
+  /* ---------- education ---------- */
+
+  .edu-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    flex-wrap:wrap;
+    gap:6px 16px;
+  }
+  .edu-title{ font-weight:600; font-size:1.05rem; }
+  .edu-meta{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.8rem;
+    color:var(--ink-soft);
+  }
+
+  /* ---------- footer / contact ---------- */
+
+  footer{
+    border-top:1px solid var(--wire);
+    padding-top:32px;
+    margin-top:8px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px 24px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.85rem;
+  }
+
+  footer a{
+    color:var(--ink);
+    text-decoration:none;
+    border-bottom:1px solid var(--wire);
+  }
+  footer a:hover{
+    border-bottom-color:var(--glitch);
+    color:var(--glitch);
+  }
+
+  :focus-visible{
+    outline:2px solid var(--glitch);
+    outline-offset:3px;
+  }
+
+  @media (max-width:520px){
+    .page{ padding:64px 20px 48px; }
+    .skill-grid{ grid-template-columns:1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="name-wrap" id="nameWrap">
+      <h1>
+        Precious Onifade
+        <span class="layer layer-b" aria-hidden="true">Precious Onifade</span>
+        <span class="layer layer-c" aria-hidden="true">Precious Onifade</span>
+      </h1>
+    </div>
+    <p class="role-comment"><span class="tok">&gt;</span> full-stack software engineer</p>
+    <p class="tagline">Rigorously secure.<span class="sep">/</span>Relentlessly experimental.</p>
+    <p class="hint">hover the name. click it. it doesn't sit still.</p>
+    <div class="cta-row">
+      <a class="cta primary" id="downloadCta" href="data:application/pdf;base64,JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1lbnQgKG9wZW5zb3VyY2UpCjEgMCBvYmoKPDwKL0YxIDIgMCBSIC9GMiAzIDAgUiAvRjMgNCAwIFIKPj4KZW5kb2JqCjIgMCBvYmoKPDwKL0Jhc2VGb250IC9IZWx2ZXRpY2EgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0YxIC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKMyAwIG9iago8PAovQmFzZUZvbnQgL0hlbHZldGljYS1Cb2xkIC9FbmNvZGluZyAvV2luQW5zaUVuY29kaW5nIC9OYW1lIC9GMiAvU3VidHlwZSAvVHlwZTEgL1R5cGUgL0ZvbnQKPj4KZW5kb2JqCjQgMCBvYmoKPDwKL0Jhc2VGb250IC9Db3VyaWVyIC9FbmNvZGluZyAvV2luQW5zaUVuY29kaW5nIC9OYW1lIC9GMyAvU3VidHlwZSAvVHlwZTEgL1R5cGUgL0ZvbnQKPj4KZW5kb2JqCjUgMCBvYmoKPDwKL0NvbnRlbnRzIDEwIDAgUiAvTWVkaWFCb3ggWyAwIDAgNjEyIDc5MiBdIC9QYXJlbnQgOSAwIFIgL1Jlc291cmNlcyA8PAovRm9udCAxIDAgUiAvUHJvY1NldCBbIC9QREYgL1RleHQgL0ltYWdlQiAvSW1hZ2VDIC9JbWFnZUkgXQo+PiAvUm90YXRlIDAgL1RyYW5zIDw8Cgo+PiAKICAvVHlwZSAvUGFnZQo+PgplbmRvYmoKNiAwIG9iago8PAovQ29udGVudHMgMTEgMCBSIC9NZWRpYUJveCBbIDAgMCA2MTIgNzkyIF0gL1BhcmVudCA5IDAgUiAvUmVzb3VyY2VzIDw8Ci9Gb250IDEgMCBSIC9Qcm9jU2V0IFsgL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSSBdCj4+IC9Sb3RhdGUgMCAvVHJhbnMgPDwKCj4+IAogIC9UeXBlIC9QYWdlCj4+CmVuZG9iago3IDAgb2JqCjw8Ci9QYWdlTW9kZSAvVXNlTm9uZSAvUGFnZXMgOSAwIFIgL1R5cGUgL0NhdGFsb2cKPj4KZW5kb2JqCjggMCBvYmoKPDwKL0F1dGhvciAoUHJlY2lvdXMgT25pZmFkZSkgL0NyZWF0aW9uRGF0ZSAoRDoyMDI2MDkxNDIzMDg1MCswMCcwMCcpIC9DcmVhdG9yIChcKHVuc3BlY2lmaWVkXCkpIC9LZXl3b3JkcyAoKSAvTW9kRGF0ZSAoRDoyMDI2MDkxNDIzMDg1MCswMCcwMCcpIC9Qcm9kdWNlciAoUmVwb3J0TGFiIFBERiBMaWJyYXJ5IC0gXChvcGVuc291cmNlXCkpIAogIC9TdWJqZWN0IChcKHVuc3BlY2lmaWVkXCkpIC9UaXRsZSAoUHJlY2lvdXMgT25pZmFkZSAtIEZ1bGwtU3RhY2sgU29mdHdhcmUgRW5naW5lZXIpIC9UcmFwcGVkIC9GYWxzZQo+PgplbmRvYmoKOSAwIG9iago8PAovQ291bnQgMiAvS2lkcyBbIDUgMCBSIDYgMCBSIF0gL1R5cGUgL1BhZ2VzCj4+CmVuZG9iagoxMCAwIG9iago8PAovRmlsdGVyIFsgL0FTQ0lJODVEZWNvZGUgL0ZsYXRlRGVjb2RlIF0gL0xlbmd0aCAxNjYyCj4+CnN0cmVhbQpHYiEjXD5BcjdTJ1JuQjMzKTxhOi4nZmVgP08hbD9SbCFZVDJgPFEma1IvdWkoKSlQUzgxQ19BSTFJWSImaGY5NjxYOG0zT3RGZj1xTC43cDhBTiVQQm9ZYWNuOSwjMnBCNjlbWk5Vb3RwMGkrUm1xKnNJU3JpQl5hS100XGB1dUxmIWpDP1JrWEwiJExNKyJXNiI9R0BoaCwnX1tVIWhTQSkhISZqalQmcSQoJiZTKW8zPUlBXFooSiVWRUhwUV8zZWhrVmRUQkRCSVdBIihSbFlkPm0oMTVUSUUrQFsjST1uP1ZFYkAzIjlMJGsjaTFKNDYkbEI9YWhaNF9WQyk8YENlXUBgXGRgV1tFSV1dSyNMQFx1KVgrTkpkcDZwOiNEdSdrWClBNiptQGZiXz9fYlpDSGIkQkEtVSY/VkA4QEpKVyE7cEkrLjZbTSpiVjcwMExacD01IT8nLCQhOT5SWWNpM2A1N11tRFhvcXJgRl0zczdHaGMlYXVlIlA0P2lZJzteKUhWbjooIks1bTZUZ1M/aEpKWmFvX1dxR3MkIkcrJSlwVzBXXlwqXlNVW19aJzpWZVBWSSVgJT8rPyZMWTRLbUNyN1BgJGg5M05tUS9GMWZbYSRAOGcpPGJTMCRdb1hbQSFaIkNjYjFyYidSSWMpND5SRz5hTUg8czgucGY/WzlmY3BJOWZyUjkkO0x1T1l1YjJXM1I+cXBORDV0al1Ybi5tZHNOVEgkRzpAVjVZQldOImgrRDgoKDcpazNtU1xqNnFPTVNhciVLR0h1W3NKLUM5cTk/QHAjOkBjUTlZKixma2suYGxxU09wXjAkRyleNF80Q285ME1eRl8iQT84QmNXN0l1UkdcPi9iMidkTidQWlU0TVg+ckomQVk/JlQ4bi4/cVArSDkrQVczYDdQQmRMWGZuN1llJisqYSxWYTE7JE9FYkYuVlo5bU1IJiJpO2NZKTBzcEctdW1uLkYqK0M/K2p1N0VlP1IsQyJZV20vNEQoTFEiVVFTXkgydThdRyYhVW01KmRjX3ByXiNYNURoVDkyYGJwJVBPOEtKO2diSCMsQiRkRDxfbjgvcChDKEQ5L3RoIUxXTm1OWkIlU1pjXEgpZyoxVTslb0RNbEdVQz5rWS47PSFIWFtYJDUkVjIwY0FZRixEbnE/ZENeV1VPdVlVbjtpTzJBOFYxRTFlLjxAJG1EMWM6ZlFITzxiLWNATTcoRlg6VkRWOGVKY3JXRS1gS29MblAlQzVgQEBdRlJuS2JaXVV1SWk/SWZqbVVxMHBvRWIuUFE6ajhpbElxb2BKVUsoWnRnaDdmXzllbj4hUkRUOSdDSUxcL2kycjE6KGpcc1gsVE1iSilkOk07LSg/Nj1RZCQmYG8rZCNSSGwxXmJyLUFNIzM/JiNTSiQmcixHW2RPPjhdO1RLQ3AlZE8ocS1PWldYW2pzaFlhQzlDWy1IcVA4XGg5QmQrSTcyKkBbcm80OnQpUW9XJVphKFonLV1JO0YvblBlKU5WK0hETV8lX1lbMilBMUtVbSRWKyY0NkRuUG9OdHJeJFJxMSVIUjo7QiQ6M0pSUVx1QjdBPVhpXXJqMyRpZDJmb0k+KVtYSl81KT9jZj5PP0BnaWg+bCo9cklqLFNjLjMtNzFYQkxtMi5TYUlyMUBGO0cwTCslQDInKCkxdUpWbi9xVWUnRT9FaUZSYihIODsmImtPWWFAcjMka2V0MjpKVEtMPC5galpxOCZNVXN0LjlfbVNaJmgsMUVQb0pWYnNAWmRYdUciRmp1cSZeVCVXU0QwO2RvMGpRMD5sQ1coT2tiOSgsW0RnUjhhcEdXYydKaC1bX2dWbm9UXCskVjBaRT50M0ZyVmBUK2A0N0tUM0VSaW5OdTJKSk11dUZjTmNnZEAmPiRKOkdZV3FwXj0nMEpXWV0mMT1HKWBobWstW2lWNyh0SykiUzlNRCJvZWwrSlBkL2A1dW1yS2xvQzY7TF50NT9Ob2hWTSxdXF4+IUhHUzJYWFptMS4laiVZPWtubiJxbWMxXGxRYUpJQFduSCMrS0NgWVFdZk0pNEBIanVpI1A1LzRZITUyKkQoUCwvczovXFcvNSMwVFddNSsqUDMpXC8mSioiaSE8VlRjZCczMSoqOj1SQjs8Sm5tIihZPEFSPWRGIltKXzgscHRxZFxvaFskXWdYVi5vb3BFY0NSWS8pT25hfj5lbmRzdHJlYW0KZW5kb2JqCjExIDAgb2JqCjw8Ci9GaWx0ZXIgWyAvQVNDSUk4NURlY29kZSAvRmxhdGVEZWNvZGUgXSAvTGVuZ3RoIDMxNQo+PgpzdHJlYW0KR2FybzxfK29ZOyY7S1klTVo4SlIkSV1hdDJtXkxdMGpcdSEhbmNsQSlbXTMnQ2peUzZnb1FXTy1DSGNfcm5tVzBLSWQ2WGZtNyU5T0RZQE0/ays8dSghSkhUJS9YRlNxNUgvVjY7dStaTE5mPSk2RTsqbEYpImctZD9RQG5Ic2Q8bklCdC5ZZmw1dGZNdTFvOmNSMVlbQjAvJVNHNjtvPlxXKi5lNkVJYTdRL0dlb0JzMlRKNmh1VC9QIjZEKjVSRlRPOVU/KmlPKS5wTypcJlI8XEZuTVFNKEdZV25zPTIuRDNLb2plI2MiUV4mTDtQUCZdW3FwImdfWClJSVxPW3ByUCoxLy5oP0NbUElYVV5CamdROmIzO1ZxPypoRygsQCRGSnFFQDQmOGYycDheVzRJL3VmNEBUPH4+ZW5kc3RyZWFtCmVuZG9iagp4cmVmCjAgMTIKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDYxIDAwMDAwIG4gCjAwMDAwMDAxMTIgMDAwMDAgbiAKMDAwMDAwMDIxOSAwMDAwMCBuIAowMDAwMDAwMzMxIDAwMDAwIG4gCjAwMDAwMDA0MzYgMDAwMDAgbiAKMDAwMDAwMDYzMCAwMDAwMCBuIAowMDAwMDAwODI0IDAwMDAwIG4gCjAwMDAwMDA4OTIgMDAwMDAgbiAKMDAwMDAwMTIwOSAwMDAwMCBuIAowMDAwMDAxMjc0IDAwMDAwIG4gCjAwMDAwMDMwMjggMDAwMDAgbiAKdHJhaWxlcgo8PAovSUQgCls8MWNiZWEzNzQyOTY5ZWUxNzc1OTdjN2VjOWNiZTQwMjA+PDFjYmVhMzc0Mjk2OWVlMTc3NTk3YzdlYzljYmU0MDIwPl0KJSBSZXBvcnRMYWIgZ2VuZXJhdGVkIFBERiBkb2N1bWVudCAtLSBkaWdlc3QgKG9wZW5zb3VyY2UpCgovSW5mbyA4IDAgUgovUm9vdCA3IDAgUgovU2l6ZSAxMgo+PgpzdGFydHhyZWYKMzQzNAolJUVPRgo=" download="Precious-Onifade-CV.pdf"><span>Download CV</span></a>
+      <a class="cta" href="mailto:onifadej@gmail.com?subject=Let%27s%20talk"><span>Contact me</span></a>
+    </div>
+  </div>
+
+  <section>
+    <p class="marker">summary</p>
+    <p>Full-stack engineer building robust backend systems and modern frontend applications, with security, maintainability, and scalability designed in from day one. Comfortable across the stack &mdash; PHP and custom backend architecture on one side, React on the other &mdash; and just as comfortable pulling both apart to see how they hold up.</p>
+  </section>
+
+  <section>
+    <p class="marker">projects</p>
+
+    <div class="role">
+      <div class="role-head">
+        <a class="role-title" href="https://naystore.vercel.app" target="_blank" rel="noopener">
+          Naystore
+          <span class="underline"></span>
+        </a>
+        <span class="role-meta">PHP · React · MySQL · JWT</span>
+      </div>
+      <ul>
+        <li>Full-stack shopping platform with secure authentication and role-based access control.</li>
+        <li>Products, carts, orders, admin dashboard, checkout workflow, merchants, and chat.</li>
+      </ul>
+    </div>
+
+    <div class="role">
+      <div class="role-head">
+        <a class="role-title" href="https://phindol.ng" target="_blank" rel="noopener">
+          Phindol Insurance Brokers
+          <span class="underline"></span>
+        </a>
+        <span class="role-meta">React · TypeScript · Tailwind</span>
+      </div>
+      <ul>
+        <li>Dynamic company website showcasing Phindol's services and partners, with a lightweight CMS.</li>
+      </ul>
+    </div>
+
+    <div class="role">
+      <div class="role-head">
+        <a class="role-title" href="https://rachvicsignatures.vercel.app" target="_blank" rel="noopener">
+          Rachvic Signatures Platform
+          <span class="underline"></span>
+        </a>
+        <span class="role-meta">PHP · React · MySQL · JWT</span>
+      </div>
+      <ul>
+        <li>Full-stack shopping platform with secure authentication and role-based access control.</li>
+        <li>Products, carts, orders, admin dashboard, and checkout workflow.</li>
+      </ul>
+    </div>
+
+    <div class="role">
+      <div class="role-head">
+        <a class="role-title" href="https://hapy-six.vercel.app" target="_blank" rel="noopener">
+          HYPA Landing Page
+          <span class="underline"></span>
+        </a>
+        <span class="role-meta">HTML · CSS · Tailwind · JS</span>
+      </div>
+      <ul>
+        <li>Static site showcasing an NGO's mission, projects, partners, and volunteer and donation info.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <p class="marker">skills</p>
+    <div class="skill-grid">
+      <div class="skill-group">
+        <h3>languages</h3>
+        <ul>
+          <li>PHP</li>
+          <li>JavaScript</li>
+          <li>TypeScript</li>
+          <li>Python</li>
+          <li>SQL</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h3>frontend</h3>
+        <ul>
+          <li>React</li>
+          <li>Vite</li>
+          <li>HTML5 / CSS3</li>
+          <li>Tailwind</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h3>backend &amp; security</h3>
+        <ul>
+          <li>Custom PHP architecture</li>
+          <li>REST APIs</li>
+          <li>JWT authentication</li>
+          <li>Role-based access control</li>
+          <li>Input validation, CORS</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h3>tools</h3>
+        <ul>
+          <li>Git</li>
+          <li>Node.js / npm</li>
+          <li>MySQL</li>
+          <li>Linux</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <p class="marker">education</p>
+    <div class="edu-head">
+      <span class="edu-title">B.Tech Computer Science</span>
+    </div>
+  </section>
+
+  <footer>
+    <span>onifadej@gmail.com</span>
+    <a href="https://wa.me/2348111384392" target="_blank" rel="noopener">WhatsApp</a>
+    <a href="https://github.com/naychurrahl" target="_blank" rel="noopener">github.com/naychurrahl</a>
+  </footer>
+
+</div>
+
+<script>
+  (function(){
+    var el = document.getElementById('nameWrap');
+    var h1 = el.querySelector('h1');
+
+    function clearSettle(){
+      el.classList.remove('settle');
+    }
+
+    // Entrance: the one deliberate glitch, fired on load.
+    window.addEventListener('DOMContentLoaded', function(){
+      requestAnimationFrame(function(){
+        el.classList.add('settle');
+      });
+    });
+    el.addEventListener('animationend', clearSettle);
+
+    // Interactive: while hovering, the split tracks the cursor —
+    // order visibly destabilizing under your own control.
+    el.addEventListener('mousemove', function(e){
+      if (el.classList.contains('settle')) return;
+      var r = h1.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width - 0.5;   // -0.5 .. 0.5
+      var y = (e.clientY - r.top) / r.height - 0.5;
+      el.style.setProperty('--gx', (x * 14).toFixed(2) + 'px');
+      el.style.setProperty('--gy', (y * 10).toFixed(2) + 'px');
+      el.classList.add('live');
+    });
+
+    el.addEventListener('mouseleave', function(){
+      el.classList.remove('live');
+      el.style.setProperty('--gx', '0px');
+      el.style.setProperty('--gy', '0px');
+    });
+
+    // Click / tap: snap back to a full replay of the entrance glitch.
+    function retrigger(){
+      el.classList.remove('live');
+      el.classList.remove('settle');
+      void el.offsetWidth; // force reflow so the animation can restart
+      el.classList.add('settle');
+    }
+    el.addEventListener('click', retrigger);
+  })();
+</script>
+
+</body>
+  </html>
