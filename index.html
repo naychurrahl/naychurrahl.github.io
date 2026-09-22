@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Business websites, online stores, custom software and digital systems built securely from the ground up.">
+  <title>Precious Onifade — Websites, Software & Digital Systems</title>
+  <style>
+:root {
+  --ink: #101114;
+  --muted: #666a73;
+  --line: #e7e7e4;
+  --paper: #f7f7f4;
+  --white: #ffffff;
+  --accent: #151515;
+  --soft: #ecece7;
+  --radius: 20px;
+  --container: 1160px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--white);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.6;
+}
+
+a { color: inherit; text-decoration: none; }
+
+.container {
+  width: min(calc(100% - 40px), var(--container));
+  margin: 0 auto;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(0,0,0,.07);
+}
+
+.nav {
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  letter-spacing: -.03em;
+  margin-right: auto;
+}
+
+.brand-mark {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  background: var(--ink);
+  color: white;
+  border-radius: 10px;
+  font-size: .9rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+  color: #4e5158;
+  font-size: .92rem;
+}
+
+.nav-links a:hover { color: var(--ink); }
+
+.nav-cta, .button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 20px;
+  border-radius: 999px;
+  font-weight: 750;
+  transition: transform .2s ease, background .2s ease;
+}
+
+.nav-cta {
+  background: var(--ink);
+  color: white;
+  font-size: .9rem;
+}
+
+.button:hover, .nav-cta:hover { transform: translateY(-2px); }
+
+.menu-toggle {
+  display: none;
+  border: 0;
+  background: transparent;
+  font-size: 1.5rem;
+}
+
+.hero {
+  background: var(--paper);
+  padding: 100px 0 90px;
+  overflow: hidden;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  align-items: center;
+  gap: 70px;
+}
+
+.eyebrow {
+  margin: 0 0 14px;
+  font-size: .74rem;
+  letter-spacing: .15em;
+  font-weight: 850;
+  color: #73756f;
+}
+
+h1, h2, h3, p { margin-top: 0; }
+
+h1 {
+  max-width: 760px;
+  margin-bottom: 24px;
+  font-size: clamp(3rem, 6vw, 5.6rem);
+  line-height: .98;
+  letter-spacing: -.065em;
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: 1.02;
+  letter-spacing: -.05em;
+  margin-bottom: 18px;
+}
+
+h3 {
+  line-height: 1.15;
+  letter-spacing: -.025em;
+}
+
+.hero-text {
+  max-width: 640px;
+  color: var(--muted);
+  font-size: 1.15rem;
+  margin-bottom: 30px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.primary { background: var(--ink); color: white; }
+.secondary { background: white; border: 1px solid var(--line); }
+
+.trust-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.trust-row span {
+  padding: 7px 12px;
+  border: 1px solid #d9d9d4;
+  border-radius: 999px;
+  font-size: .78rem;
+  color: #555851;
+  background: rgba(255,255,255,.55);
+}
+
+.hero-card {
+  min-height: 430px;
+  border-radius: 28px;
+  background: #151515;
+  padding: 14px;
+  box-shadow: 0 30px 80px rgba(0,0,0,.15);
+  transform: rotate(1.5deg);
+}
+
+.window-bar {
+  display: flex;
+  gap: 7px;
+  padding: 8px 5px 14px;
+}
+
+.window-bar span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #777;
+}
+
+.dashboard-preview {
+  min-height: 360px;
+  border-radius: 20px;
+  background: #f5f5f1;
+  padding: 30px;
+}
+
+.preview-label {
+  font-size: .7rem;
+  letter-spacing: .16em;
+  color: #777;
+  font-weight: 800;
+}
+
+.preview-main {
+  margin-top: 65px;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 22px;
+}
+
+.preview-main strong {
+  display: block;
+  font-size: 2rem;
+  letter-spacing: -.05em;
+}
+
+.preview-main small { color: #777; }
+
+.preview-number {
+  font-size: 2.6rem;
+  font-weight: 850;
+  letter-spacing: -.06em;
+}
+
+.preview-lines {
+  display: grid;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.preview-lines i {
+  display: block;
+  height: 10px;
+  width: 82%;
+  background: #d9d9d4;
+  border-radius: 20px;
+}
+
+.preview-lines i:nth-child(2) { width: 62%; }
+.preview-lines i:nth-child(3) { width: 72%; }
+
+.preview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.preview-grid div {
+  height: 55px;
+  border-radius: 12px;
+  background: #deded9;
+}
+
+.section { padding: 110px 0; }
+
+.narrow { max-width: 780px; }
+
+.intro { text-align: center; }
+
+.intro p:last-child {
+  color: var(--muted);
+  font-size: 1.1rem;
+}
+
+.section-heading {
+  display: grid;
+  grid-template-columns: 1fr .65fr;
+  gap: 80px;
+  align-items: end;
+  margin-bottom: 50px;
+}
+
+.section-heading > p {
+  color: var(--muted);
+  margin-bottom: 5px;
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+
+.service-card {
+  padding: 30px;
+  min-height: 240px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.service-card:hover { background: var(--paper); }
+
+.service-number {
+  display: block;
+  color: #999;
+  font-size: .75rem;
+  font-weight: 800;
+  margin-bottom: 45px;
+}
+
+.service-card p, .project-body p, .process-step p, .difference-copy p {
+  color: var(--muted);
+}
+
+.work-section { background: var(--paper); }
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.project-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.project-visual {
+  min-height: 250px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.project-visual span {
+  font-size: .72rem;
+  letter-spacing: .16em;
+  font-weight: 850;
+}
+
+.project-visual strong {
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: .95;
+  letter-spacing: -.06em;
+}
+
+.naystore { background: #e5e3db; }
+.phindol { background: #dfe6e2; }
+.rachvic { background: #e9e0dc; }
+.hapy { background: #e3e4e8; }
+
+.project-body { padding: 28px; }
+
+.project-type {
+  font-size: .68rem;
+  letter-spacing: .12em;
+  font-weight: 850;
+  color: #777 !important;
+}
+
+.project-body h3 { font-size: 1.65rem; margin-bottom: 10px; }
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 20px 0;
+}
+
+.tags span {
+  font-size: .72rem;
+  padding: 5px 9px;
+  background: var(--paper);
+  border-radius: 999px;
+}
+
+.project-body > a {
+  display: inline-block;
+  font-weight: 800;
+  border-bottom: 1px solid var(--ink);
+}
+
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--line);
+}
+
+.process-step {
+  padding: 30px 25px 10px;
+  border-right: 1px solid var(--line);
+}
+
+.process-step:last-child { border-right: 0; }
+
+.process-step span {
+  display: block;
+  font-size: .72rem;
+  font-weight: 850;
+  color: #999;
+  margin-bottom: 55px;
+}
+
+.difference {
+  background: #111;
+  color: white;
+}
+
+.difference-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+}
+
+.difference .eyebrow { color: #999; }
+
+.difference-copy p { color: #b8b8b8; font-size: 1.05rem; }
+
+.difference-copy ul {
+  list-style: none;
+  margin: 30px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.difference-copy li {
+  padding: 13px 0;
+  border-bottom: 1px solid #333;
+}
+
+.difference-copy li::before {
+  content: "✓";
+  margin-right: 12px;
+  color: #aaa;
+}
+
+.cta-section {
+  background: var(--paper);
+  padding: 120px 0;
+}
+
+.cta {
+  text-align: center;
+  max-width: 820px;
+}
+
+.cta h2 { font-size: clamp(2.8rem, 6vw, 5rem); }
+
+.cta > p:not(.eyebrow) {
+  max-width: 620px;
+  margin: 0 auto 30px;
+  color: var(--muted);
+}
+
+.light { background: var(--ink); color: white; }
+
+.site-footer {
+  padding: 55px 0 25px;
+  background: white;
+}
+
+.footer-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.footer-grid p {
+  color: var(--muted);
+  margin: 6px 0 0;
+}
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+  align-items: start;
+  font-size: .9rem;
+}
+
+.footer-links a:hover { text-decoration: underline; }
+
+.footer-bottom {
+  border-top: 1px solid var(--line);
+  margin-top: 45px;
+  padding-top: 18px;
+  display: flex;
+  justify-content: space-between;
+  color: #888;
+  font-size: .78rem;
+}
+
+:root[data-theme="dark"] {
+  --ink: #f4f4f1;
+  --muted: #a7a9ad;
+  --line: #303136;
+  --paper: #151619;
+  --white: #0e0f11;
+  --accent: #f4f4f1;
+  --soft: #242529;
+}
+
+:root[data-theme="dark"] body {
+  background: var(--white);
+}
+
+:root[data-theme="dark"] .site-header {
+  background: rgba(14,15,17,.92);
+  border-bottom-color: #292a2e;
+}
+
+:root[data-theme="dark"] .brand-mark {
+  background: #f4f4f1;
+  color: #111;
+}
+
+:root[data-theme="dark"] .nav-links {
+  color: #b8bac0;
+}
+
+:root[data-theme="dark"] .hero,
+:root[data-theme="dark"] .work-section,
+:root[data-theme="dark"] .cta-section {
+  background: var(--paper);
+}
+
+:root[data-theme="dark"] .secondary {
+  background: #1d1e21;
+  border-color: #34353a;
+}
+
+:root[data-theme="dark"] .hero-card {
+  background: #090a0b;
+}
+
+:root[data-theme="dark"] .dashboard-preview {
+  background: #1d1e21;
+}
+
+:root[data-theme="dark"] .preview-lines i,
+:root[data-theme="dark"] .preview-grid div {
+  background: #34353a;
+}
+
+:root[data-theme="dark"] .service-card:hover {
+  background: #1b1c1f;
+}
+
+:root[data-theme="dark"] .project-card {
+  background: #191a1d;
+  border-color: #303136;
+}
+
+:root[data-theme="dark"] .tags span {
+  background: #242529;
+}
+
+:root[data-theme="dark"] .trust-row span {
+  border-color: #393a3f;
+  background: rgba(30,31,34,.7);
+  color: #b8bac0;
+}
+
+:root[data-theme="dark"] .site-footer {
+  background: #0e0f11;
+}
+
+:root[data-theme="dark"] .menu-toggle {
+  color: #f4f4f1;
+}
+
+.theme-toggle {
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 1.05rem;
+}
+
+.theme-toggle:hover {
+  background: var(--soft);
+}
+
+@media (max-width: 850px) {
+  .theme-toggle {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 850px) {
+  .nav-links, .nav-cta { display: none; }
+  .menu-toggle { display: block; }
+
+  .nav.open .nav-links {
+    display: flex;
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    top: 70px;
+    padding: 20px;
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    flex-direction: column;
+    gap: 16px;
+    box-shadow: 0 20px 40px rgba(0,0,0,.08);
+  }
+
+  .hero { padding: 70px 0; }
+  .hero-grid, .difference-grid, .section-heading { grid-template-columns: 1fr; }
+  .hero-card { transform: none; }
+  .section-heading { gap: 15px; }
+  .service-grid { grid-template-columns: repeat(2, 1fr); }
+  .process-grid { grid-template-columns: repeat(2, 1fr); }
+  .process-step { border-bottom: 1px solid var(--line); }
+}
+
+@media (max-width: 580px) {
+  .container { width: min(calc(100% - 28px), var(--container)); }
+  .hero { padding: 55px 0; }
+  h1 { font-size: 3rem; }
+  .section { padding: 75px 0; }
+  .service-grid, .project-grid, .process-grid { grid-template-columns: 1fr; }
+  .process-step { border-right: 0; }
+  .footer-grid, .footer-bottom { flex-direction: column; }
+  .footer-links { flex-direction: column; gap: 8px; }
+}
+
+</style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="Precious Onifade home">
+        <span class="brand-mark">P</span>
+        <span>Precious Onifade</span>
+      </a>
+
+      <button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">☾</button>
+
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
+
+      <nav class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#work">Work</a>
+        <a href="#process">Process</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <a class="nav-cta" href="https://wa.me/2348111384392" target="_blank" rel="noopener">Start a Project</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">WEB • SOFTWARE • DIGITAL SYSTEMS</p>
+          <h1>Build a digital presence that works as hard as your business.</h1>
+          <p class="hero-text">
+            I build secure, modern websites, online stores and custom software that help businesses sell,
+            operate and grow online.
+          </p>
+
+          <div class="hero-actions">
+            <a class="button primary" href="https://wa.me/2348111384392" target="_blank" rel="noopener">Let's Talk</a>
+            <a class="button secondary" href="#work">See My Work</a>
+          </div>
+
+          <div class="trust-row">
+            <span>Custom-built</span>
+            <span>Security-minded</span>
+            <span>Business-focused</span>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="window-bar">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="dashboard-preview">
+            <div class="preview-label">YOUR BUSINESS, ONLINE</div>
+            <div class="preview-main">
+              <div>
+                <strong>Storefront</strong>
+                <small>Products & checkout</small>
+              </div>
+              <div class="preview-number">24/7</div>
+            </div>
+            <div class="preview-lines">
+              <i></i><i></i><i></i>
+            </div>
+            <div class="preview-grid">
+              <div></div><div></div><div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section intro">
+      <div class="container narrow">
+        <p class="eyebrow">MORE THAN A WEBSITE</p>
+        <h2>Your website should do something for the business.</h2>
+        <p>
+          Whether you need a professional online presence, an online store, an internal dashboard or a
+          custom system, the goal is the same: build something useful, reliable and ready for real business.
+        </p>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">WHAT I BUILD</p>
+            <h2>Digital solutions for real business needs.</h2>
+          </div>
+          <p>From straightforward websites to systems with authentication, dashboards, payments and custom workflows.</p>
+        </div>
+
+        <div class="service-grid">
+          <article class="service-card">
+            <span class="service-number">01</span>
+            <h3>Business Websites</h3>
+            <p>Professional websites that explain what you do, build trust and give customers a clear way to reach you.</p>
+          </article>
+          <article class="service-card">
+            <span class="service-number">02</span>
+            <h3>Online Stores</h3>
+            <p>Product catalogues, shopping carts, checkout, order management and admin tools for selling online.</p>
+          </article>
+          <article class="service-card">
+            <span class="service-number">03</span>
+            <h3>Custom Software</h3>
+            <p>Purpose-built applications for businesses that need workflows, dashboards or functionality beyond a normal website.</p>
+          </article>
+          <article class="service-card">
+            <span class="service-number">04</span>
+            <h3>Backend & APIs</h3>
+            <p>The systems behind the interface: databases, APIs, authentication, permissions and business logic.</p>
+          </article>
+          <article class="service-card">
+            <span class="service-number">05</span>
+            <h3>Automation</h3>
+            <p>Reduce repetitive work by connecting processes and building software around the way your business operates.</p>
+          </article>
+          <article class="service-card">
+            <span class="service-number">06</span>
+            <h3>Security & Maintenance</h3>
+            <p>Security-conscious development, fixes, improvements and ongoing technical support when you need it.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section work-section" id="work">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">SELECTED WORK</p>
+            <h2>Built for different kinds of businesses.</h2>
+          </div>
+          <p>Examples of websites, e-commerce platforms and digital products I have worked on.</p>
+        </div>
+
+        <div class="project-grid">
+          <article class="project-card featured">
+            <div class="project-visual naystore">
+              <span>NAYSTORE</span>
+              <strong>Commerce<br>Platform</strong>
+            </div>
+            <div class="project-body">
+              <p class="project-type">E-COMMERCE • CUSTOM SOFTWARE</p>
+              <h3>Naystore</h3>
+              <p>A multi-module platform combining e-commerce with portfolio, gallery and blog functionality.</p>
+              <div class="tags"><span>Store</span><span>Dashboard</span><span>Checkout</span><span>API</span></div>
+              <a href="https://naystore.vercel.app" target="_blank" rel="noopener">View project ↗</a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-visual phindol">
+              <span>PHINDOL</span>
+              <strong>Insurance<br>Advisory</strong>
+            </div>
+            <div class="project-body">
+              <p class="project-type">BUSINESS WEBSITE</p>
+              <h3>Phindol Insurance Brokers</h3>
+              <p>A professional company website with services, partners and content management for non-technical staff.</p>
+              <div class="tags"><span>Corporate</span><span>CMS</span><span>Responsive</span></div>
+              <a href="https://phindol.ng" target="_blank" rel="noopener">View project ↗</a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-visual rachvic">
+              <span>RACHVIC</span>
+              <strong>Fashion<br>Store</strong>
+            </div>
+            <div class="project-body">
+              <p class="project-type">E-COMMERCE</p>
+              <h3>Rachvic Signatures</h3>
+              <p>An online store with products, cart, orders, checkout, authentication and an admin dashboard.</p>
+              <div class="tags"><span>Store</span><span>Orders</span><span>Admin</span></div>
+              <a href="https://rachvicsignatures.vercel.app" target="_blank" rel="noopener">View project ↗</a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-visual hapy">
+              <span>HAPY</span>
+              <strong>Mission<br>Driven</strong>
+            </div>
+            <div class="project-body">
+              <p class="project-type">ORGANISATION WEBSITE</p>
+              <h3>HYPA Landing Page</h3>
+              <p>A fast, dependency-light website presenting an organisation's mission, projects, partners and ways to participate.</p>
+              <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+              <a href="https://hapy-six.vercel.app" target="_blank" rel="noopener">View project ↗</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section process-section" id="process">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">HOW IT WORKS</p>
+            <h2>From idea to working product.</h2>
+          </div>
+        </div>
+
+        <div class="process-grid">
+          <div class="process-step">
+            <span>01</span>
+            <h3>Tell me what you need</h3>
+            <p>We clarify the business goal, users, required features and what success should look like.</p>
+          </div>
+          <div class="process-step">
+            <span>02</span>
+            <h3>Plan the solution</h3>
+            <p>I turn the requirements into a practical structure, scope and build plan.</p>
+          </div>
+          <div class="process-step">
+            <span>03</span>
+            <h3>Build & refine</h3>
+            <p>The product is developed, tested and refined around the agreed requirements.</p>
+          </div>
+          <div class="process-step">
+            <span>04</span>
+            <h3>Launch & support</h3>
+            <p>Once ready, the solution goes live with support available for future improvements and maintenance.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section difference">
+      <div class="container difference-grid">
+        <div>
+          <p class="eyebrow">WHY CUSTOM</p>
+          <h2>Not every business fits into a template.</h2>
+        </div>
+        <div class="difference-copy">
+          <p>
+            Templates can be useful, but growing businesses often need something more specific. Custom development
+            lets the technology follow your process instead of forcing your business into someone else's structure.
+          </p>
+          <ul>
+            <li>Built around your actual workflow</li>
+            <li>Room to add features as the business grows</li>
+            <li>Control over your data and systems</li>
+            <li>Security considered from the start</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section" id="contact">
+      <div class="container cta">
+        <p class="eyebrow">HAVE A PROJECT IN MIND?</p>
+        <h2>Let's build something useful for your business.</h2>
+        <p>Tell me what you're trying to achieve. We can start with the problem and work out the right solution.</p>
+        <a class="button light" href="https://wa.me/2348111384392" target="_blank" rel="noopener">Start a Conversation ↗</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <strong>Precious Onifade</strong>
+        <p>Websites, software and digital systems built for business.</p>
+      </div>
+      <div class="footer-links">
+        <a href="mailto:onifadej@gmail.com">onifadej@gmail.com</a>
+        <a href="https://github.com/naychurrahl" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://wa.me/2348111384392" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span>© 2026 Precious Onifade</span>
+      <span>Built from the ground up.</span>
+    </div>
+  </footer>
+
+  <script>
+const menuToggle = document.querySelector(".menu-toggle");
+const nav = document.querySelector(".nav");
+const navLinks = document.querySelectorAll(".nav-links a");
+
+menuToggle?.addEventListener("click", () => {
+  const open = nav.classList.toggle("open");
+  menuToggle.setAttribute("aria-expanded", open ? "true" : "false");
+  menuToggle.textContent = open ? "×" : "☰";
+});
+
+navLinks.forEach(link => {
+  link.addEventListener("click", () => {
+    nav.classList.remove("open");
+    menuToggle?.setAttribute("aria-expanded", "false");
+    if (menuToggle) menuToggle.textContent = "☰";
+  });
+});
+
+
+const themeToggle = document.querySelector(".theme-toggle");
+const root = document.documentElement;
+
+const savedTheme = localStorage.getItem("theme");
+if (savedTheme === "dark") {
+  root.setAttribute("data-theme", "dark");
+  themeToggle.textContent = "☀";
+  themeToggle.setAttribute("aria-label", "Switch to light mode");
+  themeToggle.title = "Switch to light mode";
+}
+
+themeToggle?.addEventListener("click", () => {
+  const dark = root.getAttribute("data-theme") === "dark";
+
+  if (dark) {
+    root.removeAttribute("data-theme");
+    localStorage.setItem("theme", "light");
+    themeToggle.textContent = "☾";
+    themeToggle.setAttribute("aria-label", "Switch to dark mode");
+    themeToggle.title = "Switch to dark mode";
+  } else {
+    root.setAttribute("data-theme", "dark");
+    localStorage.setItem("theme", "dark");
+    themeToggle.textContent = "☀";
+    themeToggle.setAttribute("aria-label", "Switch to light mode");
+    themeToggle.title = "Switch to light mode";
+  }
+});
+
+</script>
+</body>
+</html>
