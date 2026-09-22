@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Business websites, online stores, custom software and digital systems built securely from the ground up.">
-  <title>Precious Onifade — Websites, Software & Digital Systems</title>
+  <title>Naychur Rahl LTD — Websites, Software & Digital Systems</title>
   <style>
 :root {
   --ink: #101114;
@@ -602,10 +602,356 @@ h3 {
   background: var(--soft);
 }
 
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.price-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 32px;
+  background: var(--white);
+  display: flex;
+  flex-direction: column;
+}
+
+.price-card.featured {
+  background: var(--ink);
+  color: white;
+  border-color: var(--ink);
+}
+
+.price-card .eyebrow {
+  margin-bottom: 12px;
+}
+
+.price-card.featured .eyebrow,
+.price-card.featured p,
+.price-card.featured li {
+  color: #b8b8b8;
+}
+
+.price {
+  font-size: 2.5rem;
+  line-height: 1;
+  font-weight: 850;
+  letter-spacing: -.05em;
+  margin: 10px 0 8px;
+}
+
+.price-meta {
+  color: var(--muted);
+  font-size: .9rem;
+  margin-bottom: 25px;
+}
+
+.price-card ul {
+  list-style: none;
+  margin: 0 0 28px;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.price-card li::before {
+  content: "✓";
+  margin-right: 10px;
+  color: #888;
+}
+
+.price-card .button {
+  margin-top: auto;
+  width: 100%;
+}
+
+.price-card.featured .button {
+  background: white;
+  color: #111;
+}
+
+.pricing-note {
+  margin-top: 22px;
+  color: var(--muted);
+  font-size: .9rem;
+}
+
+.order-section {
+  background: var(--paper);
+}
+
+.order-grid {
+  display: grid;
+  grid-template-columns: .8fr 1.2fr;
+  gap: 70px;
+  align-items: start;
+}
+
+.order-copy {
+  position: sticky;
+  top: 110px;
+}
+
+.order-copy p {
+  color: var(--muted);
+}
+
+.order-form {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 32px;
+}
+
+.form-group {
+  margin-bottom: 22px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 750;
+  margin-bottom: 8px;
+}
+
+.form-group small {
+  display: block;
+  color: var(--muted);
+  margin-top: 5px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 13px 14px;
+  background: var(--white);
+  color: var(--ink);
+  font: inherit;
+}
+
+.form-group textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-actions {
+  margin-top: 28px;
+}
+
+.form-actions .button {
+  width: 100%;
+  border: 0;
+  cursor: pointer;
+}
+
+.order-note {
+  color: var(--muted);
+  font-size: .85rem;
+  margin-top: 12px;
+  text-align: center;
+}
+
+:root[data-theme="dark"] .price-card {
+  background: #191a1d;
+}
+
+:root[data-theme="dark"] .order-form {
+  background: #191a1d;
+}
+
+:root[data-theme="dark"] .form-group input,
+:root[data-theme="dark"] .form-group select,
+:root[data-theme="dark"] .form-group textarea {
+  background: #111216;
+}
+
 @media (max-width: 850px) {
   .theme-toggle {
     margin-left: auto;
   }
+}
+
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.price-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 32px;
+  background: var(--white);
+  display: flex;
+  flex-direction: column;
+}
+
+.price-card.featured {
+  background: var(--ink);
+  color: white;
+  border-color: var(--ink);
+}
+
+.price-card .eyebrow {
+  margin-bottom: 12px;
+}
+
+.price-card.featured .eyebrow,
+.price-card.featured p,
+.price-card.featured li {
+  color: #b8b8b8;
+}
+
+.price {
+  font-size: 2.5rem;
+  line-height: 1;
+  font-weight: 850;
+  letter-spacing: -.05em;
+  margin: 10px 0 8px;
+}
+
+.price-meta {
+  color: var(--muted);
+  font-size: .9rem;
+  margin-bottom: 25px;
+}
+
+.price-card ul {
+  list-style: none;
+  margin: 0 0 28px;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.price-card li::before {
+  content: "✓";
+  margin-right: 10px;
+  color: #888;
+}
+
+.price-card .button {
+  margin-top: auto;
+  width: 100%;
+}
+
+.price-card.featured .button {
+  background: white;
+  color: #111;
+}
+
+.pricing-note {
+  margin-top: 22px;
+  color: var(--muted);
+  font-size: .9rem;
+}
+
+.order-section {
+  background: var(--paper);
+}
+
+.order-grid {
+  display: grid;
+  grid-template-columns: .8fr 1.2fr;
+  gap: 70px;
+  align-items: start;
+}
+
+.order-copy {
+  position: sticky;
+  top: 110px;
+}
+
+.order-copy p {
+  color: var(--muted);
+}
+
+.order-form {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 32px;
+}
+
+.form-group {
+  margin-bottom: 22px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 750;
+  margin-bottom: 8px;
+}
+
+.form-group small {
+  display: block;
+  color: var(--muted);
+  margin-top: 5px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 13px 14px;
+  background: var(--white);
+  color: var(--ink);
+  font: inherit;
+}
+
+.form-group textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-actions {
+  margin-top: 28px;
+}
+
+.form-actions .button {
+  width: 100%;
+  border: 0;
+  cursor: pointer;
+}
+
+.order-note {
+  color: var(--muted);
+  font-size: .85rem;
+  margin-top: 12px;
+  text-align: center;
+}
+
+:root[data-theme="dark"] .price-card {
+  background: #191a1d;
+}
+
+:root[data-theme="dark"] .order-form {
+  background: #191a1d;
+}
+
+:root[data-theme="dark"] .form-group input,
+:root[data-theme="dark"] .form-group select,
+:root[data-theme="dark"] .form-group textarea {
+  background: #111216;
 }
 
 @media (max-width: 850px) {
@@ -628,7 +974,9 @@ h3 {
   }
 
   .hero { padding: 70px 0; }
-  .hero-grid, .difference-grid, .section-heading { grid-template-columns: 1fr; }
+  .hero-grid, .difference-grid, .section-heading, .order-grid { grid-template-columns: 1fr; }
+  .pricing-grid { grid-template-columns: 1fr; }
+  .order-copy { position: static; }
   .hero-card { transform: none; }
   .section-heading { gap: 15px; }
   .service-grid { grid-template-columns: repeat(2, 1fr); }
@@ -642,6 +990,8 @@ h3 {
   h1 { font-size: 3rem; }
   .section { padding: 75px 0; }
   .service-grid, .project-grid, .process-grid { grid-template-columns: 1fr; }
+  .form-grid { grid-template-columns: 1fr; }
+  .order-form { padding: 22px; }
   .process-step { border-right: 0; }
   .footer-grid, .footer-bottom { flex-direction: column; }
   .footer-links { flex-direction: column; gap: 8px; }
@@ -652,9 +1002,9 @@ h3 {
 <body>
   <header class="site-header">
     <div class="container nav">
-      <a class="brand" href="#top" aria-label="Precious Onifade home">
-        <span class="brand-mark">P</span>
-        <span>Precious Onifade</span>
+      <a class="brand" href="#top" aria-label="Naychur Rahl LTD home">
+        <span class="brand-mark">N</span>
+        <span>Naychur Rahl LTD</span>
       </a>
 
       <button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">☾</button>
@@ -663,12 +1013,13 @@ h3 {
 
       <nav class="nav-links">
         <a href="#services">Services</a>
+        <a href="#pricing">Pricing</a>
         <a href="#work">Work</a>
         <a href="#process">Process</a>
-        <a href="#contact">Contact</a>
+        <a href="#order">Order Now</a>
       </nav>
 
-      <a class="nav-cta" href="https://wa.me/2348111384392" target="_blank" rel="noopener">Start a Project</a>
+      <a class="nav-cta" href="https://wa.me/2348111384392" target="_blank" rel="noopener">Order Now</a>
     </div>
   </header>
 
@@ -772,6 +1123,65 @@ h3 {
             <p>Security-conscious development, fixes, improvements and ongoing technical support when you need it.</p>
           </article>
         </div>
+      </div>
+    </section>
+
+
+    <section class="section" id="pricing">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">PRICING</p>
+            <h2>Clear packages for getting your business online.</h2>
+          </div>
+          <p>Choose the engagement that fits your current needs. Custom requirements can be scoped separately.</p>
+        </div>
+
+        <div class="pricing-grid">
+          <article class="price-card">
+            <p class="eyebrow">STARTER</p>
+            <h3>Essential Store</h3>
+            <div class="price">₦280,000</div>
+            <p class="price-meta">Typical delivery: ~3 weeks</p>
+            <ul>
+              <li>Product catalogue</li>
+              <li>Shopping cart</li>
+              <li>Secure checkout</li>
+              <li>Core store administration</li>
+            </ul>
+            <a class="button secondary" href="#order" data-package="Starter">Order Starter</a>
+          </article>
+
+          <article class="price-card featured">
+            <p class="eyebrow">PRO</p>
+            <h3>Full Store</h3>
+            <div class="price">₦450,000</div>
+            <p class="price-meta">Typical delivery: ~5 weeks</p>
+            <ul>
+              <li>Everything in Starter</li>
+              <li>Admin dashboard</li>
+              <li>Staff roles & access control</li>
+              <li>Expanded custom features</li>
+            </ul>
+            <a class="button light" href="#order" data-package="Pro">Order Pro</a>
+          </article>
+
+          <article class="price-card">
+            <p class="eyebrow">RETAINER</p>
+            <h3>Secure & Maintained</h3>
+            <div class="price">₦40,000<span style="font-size:1rem">/mo</span></div>
+            <p class="price-meta">Ongoing support</p>
+            <ul>
+              <li>Security patching</li>
+              <li>Dependency updates</li>
+              <li>Uptime monitoring</li>
+              <li>Issue response & improvements</li>
+            </ul>
+            <a class="button secondary" href="#order" data-package="Secure & Maintained">Get Started</a>
+          </article>
+        </div>
+
+        <p class="pricing-note">3- or 4-installment payment plans are available on project packages.</p>
       </div>
     </section>
 
@@ -900,12 +1310,122 @@ h3 {
       </div>
     </section>
 
+
+    <section class="section order-section" id="order">
+      <div class="container order-grid">
+        <div class="order-copy">
+          <p class="eyebrow">ORDER NOW</p>
+          <h2>Tell us what you need.</h2>
+          <p>Complete the intake form so we can understand your project, recommend the right package and prepare a clear scope.</p>
+          <p>We'll turn your answers into a short scope document within 2 business days, followed by a contract with your chosen package, price and payment plan options.</p>
+        </div>
+
+        <form class="order-form" id="orderForm">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="brandName">Brand / business name *</label>
+              <input id="brandName" name="brandName" required>
+            </div>
+            <div class="form-group">
+              <label for="contactName">Contact person *</label>
+              <input id="contactName" name="contactName" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="brandDescription">What does your business sell or do? *</label>
+            <textarea id="brandDescription" name="brandDescription" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="branding">Do you already have branding?</label>
+            <select id="branding" name="branding">
+              <option value="">Select one</option>
+              <option>Yes — I have my logo, colours and fonts</option>
+              <option>Partly — I have some branding assets</option>
+              <option>No — I need branding designed</option>
+            </select>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="products">Roughly how many products will you launch with?</label>
+              <input id="products" name="products">
+            </div>
+            <div class="form-group">
+              <label for="staff">How many people will manage the store?</label>
+              <input id="staff" name="staff" placeholder="e.g. 1 owner, 3 staff">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="features">Must-have features beyond catalogue, cart and checkout</label>
+            <textarea id="features" name="features" placeholder="e.g. size guides, wishlist, promo codes, gift cards, reviews"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="package">Which package are you interested in? *</label>
+            <select id="package" name="package" required>
+              <option value="">Select a package</option>
+              <option value="Starter — ₦280,000">Starter — ₦280,000</option>
+              <option value="Pro — ₦450,000">Pro — ₦450,000</option>
+              <option value="Secure & Maintained — ₦40,000/mo">Secure & Maintained — ₦40,000/mo</option>
+              <option value="Not sure yet">Not sure yet — advise me</option>
+            </select>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="domain">Do you have a domain?</label>
+              <input id="domain" name="domain" placeholder="e.g. yourbusiness.com">
+            </div>
+            <div class="form-group">
+              <label for="hosting">Hosting</label>
+              <select id="hosting" name="hosting">
+                <option value="">Select one</option>
+                <option>I already have hosting</option>
+                <option>I need hosting set up</option>
+                <option>Not sure</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="payment">Preferred payment gateway</label>
+            <input id="payment" name="payment" value="Paystack">
+            <small>Paystack is our default recommendation — let us know if you'd like something else.</small>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="launchDate">Target launch date</label>
+              <input id="launchDate" name="launchDate" type="date">
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone / WhatsApp *</label>
+              <input id="phone" name="phone" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input id="email" name="email" type="email" required>
+          </div>
+
+          <div class="form-actions">
+            <button class="button primary" type="submit">Submit Order Request ↗</button>
+            <p class="order-note">Submitting opens WhatsApp with your project details ready to send.</p>
+          </div>
+        </form>
+      </div>
+    </section>
+
     <section class="cta-section" id="contact">
       <div class="container cta">
         <p class="eyebrow">HAVE A PROJECT IN MIND?</p>
         <h2>Let's build something useful for your business.</h2>
         <p>Tell me what you're trying to achieve. We can start with the problem and work out the right solution.</p>
-        <a class="button light" href="https://wa.me/2348111384392" target="_blank" rel="noopener">Start a Conversation ↗</a>
+        <a class="button light" href="#order">Order Now ↗</a>
       </div>
     </section>
   </main>
@@ -913,7 +1433,7 @@ h3 {
   <footer class="site-footer">
     <div class="container footer-grid">
       <div>
-        <strong>Precious Onifade</strong>
+        <strong>Naychur Rahl LTD</strong>
         <p>Websites, software and digital systems built for business.</p>
       </div>
       <div class="footer-links">
@@ -923,7 +1443,7 @@ h3 {
       </div>
     </div>
     <div class="container footer-bottom">
-      <span>© 2026 Precious Onifade</span>
+      <span>© 2026 Naychur Rahl LTD</span>
       <span>Built from the ground up.</span>
     </div>
   </footer>
@@ -947,6 +1467,47 @@ navLinks.forEach(link => {
   });
 });
 
+
+
+const packageLinks = document.querySelectorAll("[data-package]");
+const packageSelect = document.querySelector("#package");
+
+packageLinks.forEach(link => {
+  link.addEventListener("click", () => {
+    const selected = link.dataset.package;
+    if (packageSelect) {
+      if (selected === "Starter") packageSelect.value = "Starter — ₦280,000";
+      if (selected === "Pro") packageSelect.value = "Pro — ₦450,000";
+      if (selected === "Secure & Maintained") packageSelect.value = "Secure & Maintained — ₦40,000/mo";
+    }
+  });
+});
+
+document.querySelector("#orderForm")?.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const form = new FormData(event.currentTarget);
+  const message = [
+    "Naychur Rahl LTD — New Order Request",
+    "",
+    `Brand / Business: ${form.get("brandName")}`,
+    `Contact Person: ${form.get("contactName")}`,
+    `What the business does: ${form.get("brandDescription")}`,
+    `Existing branding: ${form.get("branding") || "Not specified"}`,
+    `Products at launch: ${form.get("products") || "Not specified"}`,
+    `Store managers: ${form.get("staff") || "Not specified"}`,
+    `Must-have features: ${form.get("features") || "None specified"}`,
+    `Package: ${form.get("package")}`,
+    `Domain: ${form.get("domain") || "Not specified"}`,
+    `Hosting: ${form.get("hosting") || "Not specified"}`,
+    `Payment gateway: ${form.get("payment") || "Not specified"}`,
+    `Target launch: ${form.get("launchDate") || "Not specified"}`,
+    `Phone / WhatsApp: ${form.get("phone")}`,
+    `Email: ${form.get("email")}`
+  ].join("\n");
+
+  window.open(`https://wa.me/2348111384392?text=${encodeURIComponent(message)}`, "_blank", "noopener");
+});
 
 const themeToggle = document.querySelector(".theme-toggle");
 const root = document.documentElement;
