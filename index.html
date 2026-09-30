@@ -248,7 +248,7 @@ h3 {
   margin-top: 25px;
 }
 
-.preview-lines i {
+.preview-lines  {
   display: block;
   height: 10px;
   width: 82%;
@@ -256,8 +256,8 @@ h3 {
   border-radius: 20px;
 }
 
-.preview-lines i:nth-child(2) { width: 62%; }
-.preview-lines i:nth-child(3) { width: 72%; }
+.preview-lines :nth-child(2) { width: 62%; }
+.preview-lines :nth-child(3) { width: 72%; }
 
 .preview-grid {
   display: grid;
@@ -552,7 +552,7 @@ h3 {
   background: #1d1e21;
 }
 
-:root[data-theme="dark"] .preview-lines i,
+:root[data-theme="dark"] .preview-lines ,
 :root[data-theme="dark"] .preview-grid div {
   background: #34353a;
 }
@@ -1030,13 +1030,13 @@ h3 {
           <p class="eyebrow">WEB • SOFTWARE • DIGITAL SYSTEMS</p>
           <h1>Build a digital presence that works as hard as your business.</h1>
           <p class="hero-text">
-            I build secure, modern websites, online stores and custom software that help businesses sell,
+            We build secure, modern websites, online stores and custom software that help businesses sell,
             operate and grow online.
           </p>
 
           <div class="hero-actions">
             <a class="button primary" href="https://wa.me/2348111384392" target="_blank" rel="noopener">Let's Talk</a>
-            <a class="button secondary" href="#work">See My Work</a>
+            <a class="button secondary" href="#work">See Our Work</a>
           </div>
 
           <div class="trust-row">
@@ -1085,7 +1085,7 @@ h3 {
       <div class="container">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">WHAT I BUILD</p>
+            <p class="eyebrow">WHAT WE BUILD</p>
             <h2>Digital solutions for real business needs.</h2>
           </div>
           <p>From straightforward websites to systems with authentication, dashboards, payments and custom workflows.</p>
@@ -1142,7 +1142,7 @@ h3 {
             <p class="eyebrow">STARTER</p>
             <h3>Essential Store</h3>
             <div class="price">₦280,000</div>
-            <p class="price-meta">Typical delivery: ~3 weeks</p>
+            <p class="price-meta">Typical delivery: 3 weeks</p>
             <ul>
               <li>Product catalogue</li>
               <li>Shopping cart</li>
@@ -1192,7 +1192,7 @@ h3 {
             <p class="eyebrow">SELECTED WORK</p>
             <h2>Built for different kinds of businesses.</h2>
           </div>
-          <p>Examples of websites, e-commerce platforms and digital products I have worked on.</p>
+          <p>Examples of websites, e-commerce platforms and digital products we have worked on.</p>
         </div>
 
         <div class="project-grid">
@@ -1248,7 +1248,7 @@ h3 {
               <h3>HYPA Landing Page</h3>
               <p>A fast, dependency-light website presenting an organisation's mission, projects, partners and ways to participate.</p>
               <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
-              <a href="https://hapy-six.vercel.app" target="_blank" rel="noopener">View project ↗</a>
+              <a href="https://hypa.com.ng" target="_blank" rel="noopener">View project ↗</a>
             </div>
           </article>
         </div>
@@ -1267,13 +1267,13 @@ h3 {
         <div class="process-grid">
           <div class="process-step">
             <span>01</span>
-            <h3>Tell me what you need</h3>
+            <h3>Tell us what you need</h3>
             <p>We clarify the business goal, users, required features and what success should look like.</p>
           </div>
           <div class="process-step">
             <span>02</span>
             <h3>Plan the solution</h3>
-            <p>I turn the requirements into a practical structure, scope and build plan.</p>
+            <p>IWe turn the requirements into a practical structure, scope and build plan.</p>
           </div>
           <div class="process-step">
             <span>03</span>
@@ -1341,9 +1341,9 @@ h3 {
             <label for="branding">Do you already have branding?</label>
             <select id="branding" name="branding">
               <option value="">Select one</option>
-              <option>Yes — I have my logo, colours and fonts</option>
-              <option>Partly — I have some branding assets</option>
-              <option>No — I need branding designed</option>
+              <option>Yes - I have my logo, colours and fonts</option>
+              <option>Partly - I have some branding assets</option>
+              <option>No - I need branding designed</option>
             </select>
           </div>
 
@@ -1367,10 +1367,10 @@ h3 {
             <label for="package">Which package are you interested in? *</label>
             <select id="package" name="package" required>
               <option value="">Select a package</option>
-              <option value="Starter — ₦280,000">Starter — ₦280,000</option>
-              <option value="Pro — ₦450,000">Pro — ₦450,000</option>
-              <option value="Secure & Maintained — ₦40,000/mo">Secure & Maintained — ₦40,000/mo</option>
-              <option value="Not sure yet">Not sure yet — advise me</option>
+              <option value="Starter — ₦280,000">Starter - ₦280,000</option>
+              <option value="Pro — ₦450,000">Pro - ₦450,000</option>
+              <option value="Secure & Maintained - ₦40,000/mo">Secure & Maintained - ₦40,000/mo</option>
+              <option value="Not sure yet">Not sure yet - advise me</option>
             </select>
           </div>
 
@@ -1393,7 +1393,7 @@ h3 {
           <div class="form-group">
             <label for="payment">Preferred payment gateway</label>
             <input id="payment" name="payment" value="Paystack">
-            <small>Paystack is our default recommendation — let us know if you'd like something else.</small>
+            <small>Paystack is our default recommendation - let us know if you'd like something else.</small>
           </div>
 
           <div class="form-grid">
@@ -1476,9 +1476,9 @@ packageLinks.forEach(link => {
   link.addEventListener("click", () => {
     const selected = link.dataset.package;
     if (packageSelect) {
-      if (selected === "Starter") packageSelect.value = "Starter — ₦280,000";
-      if (selected === "Pro") packageSelect.value = "Pro — ₦450,000";
-      if (selected === "Secure & Maintained") packageSelect.value = "Secure & Maintained — ₦40,000/mo";
+      if (selected === "Starter") packageSelect.value = "Starter - ₦280,000";
+      if (selected === "Pro") packageSelect.value = "Pro - ₦450,000";
+      if (selected === "Secure & Maintained") packageSelect.value = "Secure & Maintained - ₦40,000/mo";
     }
   });
 });
@@ -1488,7 +1488,7 @@ document.querySelector("#orderForm")?.addEventListener("submit", (event) => {
 
   const form = new FormData(event.currentTarget);
   const message = [
-    "Naychur Rahl LTD — New Order Request",
+    "Naychur Rahl LTD - New Order Request",
     "",
     `Brand / Business: ${form.get("brandName")}`,
     `Contact Person: ${form.get("contactName")}`,
