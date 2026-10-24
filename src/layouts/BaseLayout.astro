@@ -1,0 +1,149 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  imageAlt?: string;
+  type?: 'website' | 'article';
+  jsonLd?: Record<string, unknown>;
+}
+
+const {
+  title,
+  description,
+  image = '/og-image.png',
+  imageAlt = 'Naychur Rahl LTD: Websites and online stores that work for your business.',
+  type = 'website',
+  jsonLd,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL(image, Astro.site).href;
+const isDefaultImage = image === '/og-image.png';
+
+const nav = [
+  { href: '/#services', label: 'Services' },
+  { href: '/#pricing', label: 'Pricing' },
+  { href: '/portfolio/', label: 'Portfolio' },
+  { href: '/blog/', label: 'Blog' },
+  { href: '/gallery/', label: 'Gallery' },
+  { href: '/about/', label: 'About' },
+  { href: 'https://store.naychurrahl.com.ng', label: 'Store' },
+];
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content={description}>
+  <title>{title}</title>
+  <link rel="canonical" href={canonical}>
+  <link rel="sitemap" href="/sitemap-index.xml">
+  <meta property="og:type" content={type}>
+  <meta property="og:site_name" content="Naychur Rahl LTD">
+  <meta property="og:url" content={canonical}>
+  <meta property="og:title" content={title}>
+  <meta property="og:description" content={description}>
+  <meta property="og:image" content={ogImage}>
+  {isDefaultImage && <meta property="og:image:width" content="1200">}
+  {isDefaultImage && <meta property="og:image:height" content="630">}
+  <meta property="og:image:alt" content={imageAlt}>
+  <meta name="twitter:card" content="summary_large_image">
+  {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="/" aria-label="Naychur Rahl LTD home">
+        <span class="brand-mark">N</span>
+        <span>Naychur Rahl LTD</span>
+      </a>
+
+      <button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">☾</button>
+
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
+
+      <nav class="nav-links">
+        {nav.map((item) => <a href={item.href}>{item.label}</a>)}
+      </nav>
+
+      <a class="nav-cta" href="/#order">Order Now</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <slot />
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <strong>Naychur Rahl LTD</strong>
+        <p>Websites and online stores for startups, retailers and NGOs, built remotely for clients in Abuja, Lagos and worldwide.</p>
+      </div>
+      <div class="footer-links">
+        <a href="mailto:support@naychurrahl.com.ng">support@naychurrahl.com.ng</a>
+        <a href="https://github.com/naychurrahl" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://wa.me/2348111384392" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span>© {new Date().getFullYear()} Naychur Rahl LTD</span>
+      <span>Built from the ground up.</span>
+    </div>
+  </footer>
+
+  <script is:inline>
+const menuToggle = document.querySelector(".menu-toggle");
+const nav = document.querySelector(".nav");
+const navLinks = document.querySelectorAll(".nav-links a");
+
+menuToggle?.addEventListener("click", () => {
+  const open = nav.classList.toggle("open");
+  menuToggle.setAttribute("aria-expanded", open ? "true" : "false");
+  menuToggle.textContent = open ? "×" : "☰";
+});
+
+navLinks.forEach(link => {
+  link.addEventListener("click", () => {
+    nav.classList.remove("open");
+    menuToggle?.setAttribute("aria-expanded", "false");
+    if (menuToggle) menuToggle.textContent = "☰";
+  });
+});
+
+const themeToggle = document.querySelector(".theme-toggle");
+const root = document.documentElement;
+
+let savedTheme = null;
+try { savedTheme = localStorage.getItem("theme"); } catch (e) {}
+if (savedTheme === "dark") {
+  root.setAttribute("data-theme", "dark");
+  themeToggle.textContent = "☀";
+  themeToggle.setAttribute("aria-label", "Switch to light mode");
+  themeToggle.title = "Switch to light mode";
+}
+
+themeToggle?.addEventListener("click", () => {
+  const dark = root.getAttribute("data-theme") === "dark";
+
+  if (dark) {
+    root.removeAttribute("data-theme");
+    try { localStorage.setItem("theme", "light"); } catch (e) {}
+    themeToggle.textContent = "☾";
+    themeToggle.setAttribute("aria-label", "Switch to dark mode");
+    themeToggle.title = "Switch to dark mode";
+  } else {
+    root.setAttribute("data-theme", "dark");
+    try { localStorage.setItem("theme", "dark"); } catch (e) {}
+    themeToggle.textContent = "☀";
+    themeToggle.setAttribute("aria-label", "Switch to light mode");
+    themeToggle.title = "Switch to light mode";
+  }
+});
+  </script>
+</body>
+</html>

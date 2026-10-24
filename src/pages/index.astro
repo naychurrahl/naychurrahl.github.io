@@ -1,0 +1,433 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getPortfolio } from '../lib/api';
+import { withSlugs } from '../lib/slug';
+import ProjectCard from '../components/ProjectCard';
+
+const projects = withSlugs(await getPortfolio());
+const featured = projects.filter((p) => p.featured);
+const selected = (featured.length >= 2 ? featured : projects).slice(0, 4);
+
+const organization = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Naychur Rahl LTD',
+  url: 'https://naychurrahl.com.ng/',
+  image: 'https://naychurrahl.com.ng/og-image.png',
+  description: 'Business websites, online stores and custom software for startups, retailers and NGOs.',
+  email: 'support@naychurrahl.com.ng',
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'sales',
+    telephone: '+2348111384392',
+    email: 'support@naychurrahl.com.ng',
+  },
+  areaServed: [
+    { '@type': 'City', name: 'Abuja' },
+    { '@type': 'City', name: 'Lagos' },
+    { '@type': 'Country', name: 'Nigeria' },
+    'Worldwide',
+  ],
+  sameAs: ['https://github.com/naychurrahl'],
+};
+---
+<BaseLayout
+  title="Website & E-commerce Development in Nigeria | Naychur Rahl"
+  description="Business websites and online stores for startups, retailers and NGOs. A remote team serving Abuja, Lagos and clients worldwide. Chat with us on WhatsApp."
+  jsonLd={organization}
+>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">WEB • SOFTWARE • DIGITAL SYSTEMS</p>
+          <h1>Build a digital presence that works as hard as your business.</h1>
+          <p class="hero-text">
+            We build secure, modern websites, online stores and custom software that help startups, retailers
+            and NGOs sell, operate and grow online. A remote team serving Abuja, Lagos and clients worldwide.
+          </p>
+
+          <div class="hero-actions">
+            <a class="button primary" href="https://wa.me/2348111384392" target="_blank" rel="noopener">Let's Talk</a>
+            <a class="button secondary" href="#work">See Our Work</a>
+          </div>
+
+          <div class="trust-row">
+            <span>Custom-built</span>
+            <span>Security-minded</span>
+            <span>Business-focused</span>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="window-bar">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="dashboard-preview">
+            <div class="preview-label">YOUR BUSINESS, ONLINE</div>
+            <div class="preview-main">
+              <div>
+                <strong>Storefront</strong>
+                <small>Products & checkout</small>
+              </div>
+              <div class="preview-number">24/7</div>
+            </div>
+            <div class="preview-lines">
+              <i></i><i></i><i></i>
+            </div>
+            <div class="preview-grid">
+              <div></div><div></div><div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section intro">
+      <div class="container narrow">
+        <p class="eyebrow">MORE THAN A WEBSITE</p>
+        <h2>Your website should do something for the business.</h2>
+        <p>
+          Whether you need a professional online presence, an online store, an internal dashboard or a
+          custom system, the goal is the same: build something useful, reliable and ready for real business.
+        </p>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">WHAT WE BUILD</p>
+            <h2>Digital solutions for real business needs.</h2>
+          </div>
+          <p>From straightforward websites to systems with authentication, dashboards, payments and custom workflows.</p>
+        </div>
+
+        <div class="service-grid">
+          <article class="service-card">
+            <span class="service-number">01</span>
+            <h3>Business Websites</h3>
+            <p>Professional websites that explain what you do, build trust and give customers a clear way to reach you.</p>
+          </article>
+          <article class="service-card">
+            <span class="service-number">02</span>
+            <h3>Online Stores</h3>
+            <p>Product catalogues, shopping carts, checkout, order management and admin tools for retailers selling online.</p>
+          </article>
+          <article class="service-card">
+            <span class="service-number">03</span>
+            <h3>Custom Software</h3>
+            <p>Purpose-built applications for businesses that need workflows, dashboards or functionality beyond a normal website.</p>
+          </article>
+          <article class="service-card">
+            <span class="service-number">04</span>
+            <h3>Backend & APIs</h3>
+            <p>The systems behind the interface: databases, APIs, authentication, permissions and business logic.</p>
+          </article>
+          <article class="service-card">
+            <span class="service-number">05</span>
+            <h3>Automation</h3>
+            <p>Reduce repetitive work by connecting processes and building software around the way your business operates.</p>
+          </article>
+          <article class="service-card">
+            <span class="service-number">06</span>
+            <h3>Security & Maintenance</h3>
+            <p>Security-conscious development, fixes, improvements and ongoing technical support when you need it.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section" id="pricing">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">PRICING</p>
+            <h2>Clear packages for getting your business online.</h2>
+          </div>
+          <p>Choose the engagement that fits your current needs. Custom requirements can be scoped separately.</p>
+        </div>
+
+        <div class="pricing-grid">
+          <article class="price-card">
+            <p class="eyebrow">STARTER</p>
+            <h3>Essential Store</h3>
+            <div class="price">₦280,000</div>
+            <p class="price-meta">Typical delivery: 3 weeks</p>
+            <ul>
+              <li>Product catalogue</li>
+              <li>Shopping cart</li>
+              <li>Secure checkout</li>
+              <li>Core store administration</li>
+            </ul>
+            <a class="button secondary" href="#order" data-package="Starter">Order Starter</a>
+          </article>
+
+          <article class="price-card featured">
+            <p class="eyebrow">PRO</p>
+            <h3>Full Store</h3>
+            <div class="price">₦450,000</div>
+            <p class="price-meta">Typical delivery: ~5 weeks</p>
+            <ul>
+              <li>Everything in Starter</li>
+              <li>Admin dashboard</li>
+              <li>Staff roles & access control</li>
+              <li>Expanded custom features</li>
+            </ul>
+            <a class="button light" href="#order" data-package="Pro">Order Pro</a>
+          </article>
+
+          <article class="price-card">
+            <p class="eyebrow">RETAINER</p>
+            <h3>Secure & Maintained</h3>
+            <div class="price">₦40,000<span style="font-size:1rem">/mo</span></div>
+            <p class="price-meta">Ongoing support</p>
+            <ul>
+              <li>Security patching</li>
+              <li>Dependency updates</li>
+              <li>Uptime monitoring</li>
+              <li>Issue response & improvements</li>
+            </ul>
+            <a class="button secondary" href="#order" data-package="Secure & Maintained">Get Started</a>
+          </article>
+        </div>
+
+        <p class="pricing-note">3- or 4-installment payment plans are available on project packages.</p>
+      </div>
+    </section>
+
+    <section class="section work-section" id="work">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">SELECTED WORK</p>
+            <h2>Built for different kinds of businesses.</h2>
+          </div>
+          <p>Examples of websites, e-commerce platforms and digital products we have built for retailers, companies and organisations.</p>
+        </div>
+
+        <div class="project-grid">
+          {selected.map((project, i) => <ProjectCard project={project} index={i} featured={i === 0} />)}
+        </div>
+
+        <p class="section-more"><a class="button secondary" href="/portfolio/">View all projects</a></p>
+      </div>
+    </section>
+
+    <section class="section process-section" id="process">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">HOW IT WORKS</p>
+            <h2>From idea to working product.</h2>
+          </div>
+        </div>
+
+        <div class="process-grid">
+          <div class="process-step">
+            <span>01</span>
+            <h3>Tell us what you need</h3>
+            <p>We clarify the business goal, users, required features and what success should look like.</p>
+          </div>
+          <div class="process-step">
+            <span>02</span>
+            <h3>Plan the solution</h3>
+            <p>We turn the requirements into a practical structure, scope and build plan.</p>
+          </div>
+          <div class="process-step">
+            <span>03</span>
+            <h3>Build & refine</h3>
+            <p>The product is developed, tested and refined around the agreed requirements.</p>
+          </div>
+          <div class="process-step">
+            <span>04</span>
+            <h3>Launch & support</h3>
+            <p>Once ready, the solution goes live with support available for future improvements and maintenance.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section difference">
+      <div class="container difference-grid">
+        <div>
+          <p class="eyebrow">WHY CUSTOM</p>
+          <h2>Not every business fits into a template.</h2>
+        </div>
+        <div class="difference-copy">
+          <p>
+            Templates can be useful, but growing businesses often need something more specific. Custom development
+            lets the technology follow your process instead of forcing your business into someone else's structure.
+          </p>
+          <ul>
+            <li>Built around your actual workflow</li>
+            <li>Room to add features as the business grows</li>
+            <li>Control over your data and systems</li>
+            <li>Security considered from the start</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section order-section" id="order">
+      <div class="container order-grid">
+        <div class="order-copy">
+          <p class="eyebrow">ORDER NOW</p>
+          <h2>Tell us what you need.</h2>
+          <p>Complete the intake form so we can understand your project, recommend the right package and prepare a clear scope.</p>
+          <p>We'll turn your answers into a short scope document within 2 business days, followed by a contract with your chosen package, price and payment plan options.</p>
+        </div>
+
+        <form class="order-form" id="orderForm">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="brandName">Brand / business name *</label>
+              <input id="brandName" name="brandName" required>
+            </div>
+            <div class="form-group">
+              <label for="contactName">Contact person *</label>
+              <input id="contactName" name="contactName" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="brandDescription">What does your business sell or do? *</label>
+            <textarea id="brandDescription" name="brandDescription" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="branding">Do you already have branding?</label>
+            <select id="branding" name="branding">
+              <option value="">Select one</option>
+              <option>Yes - I have my logo, colours and fonts</option>
+              <option>Partly - I have some branding assets</option>
+              <option>No - I need branding designed</option>
+            </select>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="products">Roughly how many products will you launch with?</label>
+              <input id="products" name="products">
+            </div>
+            <div class="form-group">
+              <label for="staff">How many people will manage the store?</label>
+              <input id="staff" name="staff" placeholder="e.g. 1 owner, 3 staff">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="features">Must-have features beyond catalogue, cart and checkout</label>
+            <textarea id="features" name="features" placeholder="e.g. size guides, wishlist, promo codes, gift cards, reviews"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="package">Which package are you interested in? *</label>
+            <select id="package" name="package" required>
+              <option value="">Select a package</option>
+              <option value="Starter — ₦280,000">Starter - ₦280,000</option>
+              <option value="Pro — ₦450,000">Pro - ₦450,000</option>
+              <option value="Secure & Maintained - ₦40,000/mo">Secure & Maintained - ₦40,000/mo</option>
+              <option value="Not sure yet">Not sure yet - advise me</option>
+            </select>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="domain">Do you have a domain?</label>
+              <input id="domain" name="domain" placeholder="e.g. yourbusiness.com">
+            </div>
+            <div class="form-group">
+              <label for="hosting">Hosting</label>
+              <select id="hosting" name="hosting">
+                <option value="">Select one</option>
+                <option>I already have hosting</option>
+                <option>I need hosting set up</option>
+                <option>Not sure</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="payment">Preferred payment gateway</label>
+            <input id="payment" name="payment" value="Paystack">
+            <small>Paystack is our default recommendation - let us know if you'd like something else.</small>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="launchDate">Target launch date</label>
+              <input id="launchDate" name="launchDate" type="date">
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone / WhatsApp *</label>
+              <input id="phone" name="phone" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input id="email" name="email" type="email" required>
+          </div>
+
+          <div class="form-actions">
+            <button class="button primary" type="submit">Submit Order Request ↗</button>
+            <p class="order-note">Submitting opens WhatsApp with your project details ready to send.</p>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section class="cta-section" id="contact">
+      <div class="container cta">
+        <p class="eyebrow">HAVE A PROJECT IN MIND?</p>
+        <h2>Let's build something useful for your business.</h2>
+        <p>Tell us what you're trying to achieve. We can start with the problem and work out the right solution.</p>
+        <a class="button light" href="#order">Order Now ↗</a>
+      </div>
+    </section>
+
+  <script is:inline>
+const packageLinks = document.querySelectorAll("[data-package]");
+const packageSelect = document.querySelector("#package");
+
+packageLinks.forEach(link => {
+  link.addEventListener("click", () => {
+    const selected = link.dataset.package;
+    if (packageSelect) {
+      if (selected === "Starter") packageSelect.value = "Starter - ₦280,000";
+      if (selected === "Pro") packageSelect.value = "Pro - ₦450,000";
+      if (selected === "Secure & Maintained") packageSelect.value = "Secure & Maintained - ₦40,000/mo";
+    }
+  });
+});
+
+document.querySelector("#orderForm")?.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const form = new FormData(event.currentTarget);
+  const message = [
+    "Naychur Rahl LTD - New Order Request",
+    "",
+    `Brand / Business: ${form.get("brandName")}`,
+    `Contact Person: ${form.get("contactName")}`,
+    `What the business does: ${form.get("brandDescription")}`,
+    `Existing branding: ${form.get("branding") || "Not specified"}`,
+    `Products at launch: ${form.get("products") || "Not specified"}`,
+    `Store managers: ${form.get("staff") || "Not specified"}`,
+    `Must-have features: ${form.get("features") || "None specified"}`,
+    `Package: ${form.get("package")}`,
+    `Domain: ${form.get("domain") || "Not specified"}`,
+    `Hosting: ${form.get("hosting") || "Not specified"}`,
+    `Payment gateway: ${form.get("payment") || "Not specified"}`,
+    `Target launch: ${form.get("launchDate") || "Not specified"}`,
+    `Phone / WhatsApp: ${form.get("phone")}`,
+    `Email: ${form.get("email")}`
+  ].join("\n");
+
+  window.open(`https://wa.me/2348111384392?text=${encodeURIComponent(message)}`, "_blank", "noopener");
+});
+  </script>
+</BaseLayout>

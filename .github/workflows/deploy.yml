@@ -1,0 +1,40 @@
+name: Build and deploy
+
+on:
+  push:
+    branches: [main]
+  # Sent by the CMS/backend when content is published.
+  repository_dispatch:
+    types: [cms-publish]
+  # Daily safety-net rebuild to pick up any CMS edits that didn't trigger a dispatch.
+  schedule:
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: withastro/action@v3
+        with:
+          node-version: 22
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

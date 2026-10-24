@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://naychurrahl.com.ng/sitemap-index.xml

@@ -1,0 +1,66 @@
+---
+import sanitizeHtml from 'sanitize-html';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard';
+import { getBlog } from '../../lib/api';
+import { withSlugs, formatDate } from '../../lib/slug';
+
+export async function getStaticPaths() {
+  const posts = withSlugs(await getBlog());
+  return posts.map((post) => {
+    // Up to 3 other posts sharing a category, as on the store's blog.
+    const related = posts
+      .filter((p) => p.id !== post.id && p.categories.some((c) => post.categories.includes(c)))
+      .slice(0, 3);
+    return { params: { slug: post.slug }, props: { post, related } };
+  });
+}
+
+const { post, related } = Astro.props;
+
+const content = sanitizeHtml(post.content, {
+  allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'h1', 'h2', 'figure', 'figcaption']),
+  allowedAttributes: {
+    ...sanitizeHtml.defaults.allowedAttributes,
+    img: ['src', 'alt', 'width', 'height', 'loading'],
+  },
+});
+---
+<BaseLayout
+  title={`${post.title} | Naychur Rahl Blog`}
+  description={post.excerpt.slice(0, 160)}
+  image={post.image ?? undefined}
+  imageAlt={post.title}
+  type="article"
+>
+  <article class="section detail">
+    <div class="container narrow">
+      <a class="back-link" href="/blog/">← All articles</a>
+      <p class="eyebrow">{post.categories.join(' • ').toUpperCase()}</p>
+      <h1>{post.title}</h1>
+      <div class="post-author">
+        {post.authorImage && <img src={post.authorImage} alt="" width="44" height="44" />}
+        <p>
+          <strong>{post.author}</strong>
+          <span>{formatDate(post.publishDate, 'long')} · {post.readTime} min read</span>
+        </p>
+      </div>
+      {post.image && <img class="detail-image" src={post.image} alt={post.title} width="1200" height="600" />}
+      <p class="detail-lead">{post.excerpt}</p>
+      <div class="prose" set:html={content} />
+      {post.tags.length > 0 && <div class="tags">{post.tags.map((t) => <span>#{t}</span>)}</div>}
+    </div>
+  </article>
+
+  {related.length > 0 && (
+    <section class="section work-section">
+      <div class="container">
+        <p class="eyebrow">KEEP READING</p>
+        <h2>Related articles</h2>
+        <div class="post-grid">
+          {related.map((p) => <PostCard post={p} />)}
+        </div>
+      </div>
+    </section>
+  )}
+</BaseLayout>
