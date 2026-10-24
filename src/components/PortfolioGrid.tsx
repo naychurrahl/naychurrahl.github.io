@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { Project } from '../lib/api';
 import ProjectCard from './ProjectCard';
 import Filters from './Filters';
+import EmptyState from './EmptyState';
 
 interface Props {
   projects: (Project & { slug: string })[];
@@ -12,6 +13,10 @@ export default function PortfolioGrid({ projects, categories }: Props) {
   const [category, setCategory] = useState('All');
   const [featuredOnly, setFeaturedOnly] = useState(false);
   const hasFeatured = projects.some((p) => p.featured);
+
+  if (projects.length === 0) {
+    return <EmptyState title="Projects are on their way." text="We're adding our latest work. Check back soon." />;
+  }
 
   const shown = projects.filter((p) =>
     (category === 'All' || p.categories.includes(category)) && (!featuredOnly || p.featured));

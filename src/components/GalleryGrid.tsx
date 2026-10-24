@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { GalleryImage } from '../lib/api';
 import { formatDate } from '../lib/slug';
 import Filters from './Filters';
+import EmptyState from './EmptyState';
 
 interface Props {
   images: GalleryImage[];
@@ -26,6 +27,10 @@ export default function GalleryGrid({ images, categories }: Props) {
       document.body.style.overflow = '';
     };
   }, [open]);
+
+  if (images.length === 0) {
+    return <EmptyState title="No photos yet." text="We're putting the gallery together. Check back soon." />;
+  }
 
   return (
     <>
