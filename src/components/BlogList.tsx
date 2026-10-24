@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { Post } from '../lib/api';
 import PostCard from './PostCard';
 import Filters from './Filters';
+import EmptyState from './EmptyState';
 
 type ListPost = Omit<Post, 'content'> & { slug: string };
 
@@ -13,6 +14,10 @@ interface Props {
 export default function BlogList({ posts, categories }: Props) {
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState('All');
+
+  if (posts.length === 0) {
+    return <EmptyState title="No articles yet." text="Our first posts are on the way. Check back soon." />;
+  }
 
   const q = query.trim().toLowerCase();
   const shown = posts.filter((p) => {

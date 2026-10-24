@@ -207,11 +207,16 @@ const organization = {
           <p>Examples of websites, e-commerce platforms and digital products we have built for retailers, companies and organisations.</p>
         </div>
 
-        <div class="project-grid">
-          {selected.map((project, i) => <ProjectCard project={project} index={i} featured={i === 0} />)}
-        </div>
-
-        <p class="section-more"><a class="button secondary" href="/portfolio/">View all projects</a></p>
+        {selected.length > 0 ? (
+          <>
+            <div class="project-grid">
+              {selected.map((project, i) => <ProjectCard project={project} index={i} featured={i === 0} />)}
+            </div>
+            <p class="section-more"><a class="button secondary" href="/portfolio/">View all projects</a></p>
+          </>
+        ) : (
+          <p class="empty-state">Our latest projects are being added. Check back soon.</p>
+        )}
       </div>
     </section>
 
