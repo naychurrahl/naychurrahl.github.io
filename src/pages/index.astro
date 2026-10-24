@@ -3,33 +3,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { getPortfolio } from '../lib/api';
 import { withSlugs } from '../lib/slug';
 import ProjectCard from '../components/ProjectCard';
+import { organization } from '../data/organization';
 
 const projects = withSlugs(await getPortfolio());
 const featured = projects.filter((p) => p.featured);
 const selected = (featured.length >= 2 ? featured : projects).slice(0, 4);
 
-const organization = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'Naychur Rahl LTD',
-  url: 'https://naychurrahl.com.ng/',
-  image: 'https://naychurrahl.com.ng/og-image.png',
-  description: 'Business websites, online stores and custom software for startups, retailers and NGOs.',
-  email: 'support@naychurrahl.com.ng',
-  contactPoint: {
-    '@type': 'ContactPoint',
-    contactType: 'sales',
-    telephone: '+2348111384392',
-    email: 'support@naychurrahl.com.ng',
-  },
-  areaServed: [
-    { '@type': 'City', name: 'Abuja' },
-    { '@type': 'City', name: 'Lagos' },
-    { '@type': 'Country', name: 'Nigeria' },
-    'Worldwide',
-  ],
-  sameAs: ['https://github.com/naychurrahl'],
-};
 ---
 <BaseLayout
   title="Website & E-commerce Development in Nigeria | Naychur Rahl"

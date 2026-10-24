@@ -30,8 +30,17 @@ const { project } = Astro.props;
       )}
       <p class="detail-lead">{project.description}</p>
       {project.tags.length > 0 && <div class="tags">{project.tags.map((t) => <span>{t}</span>)}</div>}
+      {project.links.length > 0 && (
+        <p class="detail-cta">
+          {project.links.map((link, i) => (
+            <a class:list={['button', i === 0 ? 'primary' : 'secondary']} href={link.url} target="_blank" rel="noopener">
+              {link.label} ↗
+            </a>
+          ))}
+        </p>
+      )}
       <p class="detail-cta">
-        <a class="button primary" href="/#order">Start a project like this</a>
+        <a class:list={['button', project.links.length > 0 ? 'secondary' : 'primary']} href="/#order">Start a project like this</a>
         <a class="button secondary" href="/portfolio/">See more work</a>
       </p>
     </div>

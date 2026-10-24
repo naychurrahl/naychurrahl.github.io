@@ -1,25 +1,129 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
-import { getSettings } from '../lib/api';
+import ProjectCard from '../components/ProjectCard';
+import { getPortfolio, getTestimonials } from '../lib/api';
+import { withSlugs } from '../lib/slug';
+import { organization } from '../data/organization';
+import { hero, story, values, team, facts } from '../data/about';
 
-// Placeholder copy from CMS settings until the final About text is supplied.
-const settings = await getSettings();
+const projects = withSlugs(await getPortfolio());
+const featured = projects.filter((p) => p.featured);
+const selected = (featured.length >= 2 ? featured : projects).slice(0, 3);
+const testimonials = await getTestimonials();
+
+const initials = (name: string) =>
+  name.split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0].toUpperCase()).join('');
+
+const aboutPage = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  url: 'https://naychurrahl.com.ng/about/',
+  mainEntity: organization,
+};
 ---
 <BaseLayout
   title="About Naychur Rahl LTD | Remote Web & E-commerce Team"
   description="Naychur Rahl LTD is a remote team building business websites, online stores and custom software for startups, retailers and NGOs."
+  jsonLd={aboutPage}
 >
-  <PageHero
-    eyebrow="ABOUT US"
-    title="A remote team building for real businesses."
-    intro="We build websites, online stores and custom software for startups, retailers and NGOs in Abuja, Lagos and worldwide."
-  />
+  <PageHero eyebrow="ABOUT US" title={hero.title} intro={hero.intro} />
+
   <section class="section">
-    <div class="container narrow prose">
-      {settings.description && <p>{settings.description}</p>}
+    <div class="container narrow">
+      <p class="eyebrow">OUR STORY</p>
+      <h2>{story.heading}</h2>
+      <div class="prose">
+        {story.paragraphs.map((p) => <p>{p}</p>)}
+      </div>
+      <p class="mission">{story.mission}</p>
     </div>
   </section>
+
+  <section class="section difference">
+    <div class="container">
+      <p class="eyebrow">HOW WE WORK</p>
+      <h2>What you can expect from us.</h2>
+      <div class="values-grid">
+        {values.map((v, i) => (
+          <article class="value-card">
+            <span>{String(i + 1).padStart(2, '0')}</span>
+            <h3>{v.title}</h3>
+            <p>{v.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {team.length > 0 && (
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">THE TEAM</p>
+            <h2>The people behind the work.</h2>
+          </div>
+        </div>
+        <div class="team-grid">
+          {team.map((m) => (
+            <article class="team-card">
+              {m.photo
+                ? <img class="team-photo" src={m.photo} alt={m.name} width="96" height="96" loading="lazy" />
+                : <span class="team-photo team-initials" aria-hidden="true">{initials(m.name)}</span>}
+              <h3>{m.name}</h3>
+              <p class="project-type">{m.role.toUpperCase()}</p>
+              {m.bio && <p>{m.bio}</p>}
+              {m.link && <a class="team-link" href={m.link} target="_blank" rel="noopener">Profile ↗</a>}
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="section work-section">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">PROOF, NOT PROMISES</p>
+          <h2>Work that's live and running.</h2>
+        </div>
+      </div>
+
+      <div class="facts-row">
+        {projects.length > 0 && (
+          <div class="fact"><strong>{projects.length}</strong><span>projects delivered</span></div>
+        )}
+        {facts.map((f) => <div class="fact"><strong>{f.value}</strong><span>{f.label}</span></div>)}
+      </div>
+
+      {selected.length > 0 && (
+        <>
+          <div class="project-grid about-work">
+            {selected.map((p, i) => <ProjectCard project={p} index={i} />)}
+          </div>
+          <p class="section-more"><a class="button secondary" href="/portfolio/">See all work</a></p>
+        </>
+      )}
+
+      {testimonials.length > 0 && (
+        <div class="testimonial-grid">
+          {testimonials.map((t) => (
+            <figure class="testimonial">
+              {t.rating ? <p class="rating" aria-label={`${t.rating} out of 5`}>{'★'.repeat(Math.round(t.rating))}</p> : null}
+              <blockquote>“{t.quote}”</blockquote>
+              <figcaption>
+                {t.avatar && <img src={t.avatar} alt="" width="44" height="44" loading="lazy" />}
+                <span><strong>{t.customerName}</strong>{t.roleCompany}</span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+
   <section class="cta-section">
     <div class="container cta">
       <p class="eyebrow">HAVE A PROJECT IN MIND?</p>
