@@ -14,6 +14,20 @@ export interface Project {
   tags: string[];
   year: number;
   featured: boolean;
+  // Built from CMS custom fields that hold a URL (see getPortfolio).
+  links: ProjectLink[];
+  liveUrl: string | null;
+}
+
+export interface ProjectLink {
+  label: string;
+  url: string;
+}
+
+interface FieldDef {
+  key: string;
+  label: string;
+  type: string;
 }
 
 export interface Post {
@@ -64,10 +78,25 @@ export type CategoryType = 'portfolio' | 'blog' | 'gallery';
 
 const cache = new Map<string, Promise<unknown>>();
 
+// Retries network errors and 5xx twice (2s, then 5s) before giving up,
+// so a brief hiccup on the API host doesn't fail a deploy.
+async function fetchWithRetry(url: string): Promise<Response> {
+  const delays = [2000, 5000];
+  for (let attempt = 0; ; attempt++) {
+    try {
+      const res = await fetch(url, { headers: { Accept: 'application/json' } });
+      if (res.status < 500 || attempt >= delays.length) return res;
+    } catch (err) {
+      if (attempt >= delays.length) throw err;
+    }
+    await new Promise((r) => setTimeout(r, delays[attempt]));
+  }
+}
+
 function get<T>(path: string): Promise<T> {
   if (!cache.has(path)) {
     cache.set(path, (async () => {
-      const res = await fetch(`${API_URL}${path}`, { headers: { Accept: 'application/json' } });
+      const res = await fetchWithRetry(`${API_URL}${path}`);
       if (!res.ok) throw new Error(`API ${path} failed: ${res.status} ${res.statusText}`);
       const data = await res.json();
       if (data && typeof data === 'object' && 'error' in data) {
@@ -79,7 +108,27 @@ function get<T>(path: string): Promise<T> {
   return cache.get(path) as Promise<T>;
 }
 
-export const getPortfolio = () => get<Project[]>('/portfolio');
+// Any portfolio custom field whose value is an http(s) URL becomes a link,
+// labelled with the field's CMS label. "Live site"-like labels win liveUrl.
+export async function getPortfolio(): Promise<Project[]> {
+  const [rows, fields] = await Promise.all([
+    get<Record<string, unknown>[]>('/portfolio'),
+    get<FieldDef[]>('/builtin-type-fields/portfolio'),
+  ]);
+  return rows.map((row) => {
+    const links: ProjectLink[] = [];
+    for (const field of fields) {
+      const value = row[field.key];
+      if (typeof value === 'string' && /^https?:\/\/\S+$/i.test(value.trim())) {
+        links.push({ label: field.label, url: value.trim() });
+      }
+    }
+    const live = links.find((l) => /live|website|site/i.test(l.label)) ?? links[0];
+    // Only known fields, so raw custom-field values never reach the browser.
+    const { id, title, client, categories, image, description, tags, year, featured } = row as unknown as Project;
+    return { id, title, client, categories, image, description, tags, year, featured, links, liveUrl: live?.url ?? null };
+  });
+}
 export const getBlog = () => get<Post[]>('/blog');
 export const getGallery = () => get<GalleryImage[]>('/gallery');
 export const getTestimonials = () => get<Testimonial[]>('/testimonials');

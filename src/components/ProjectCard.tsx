@@ -24,7 +24,12 @@ export default function ProjectCard({ project, index, featured = false }: Props)
         {project.tags.length > 0 && (
           <div className="tags">{project.tags.map((t) => <span key={t}>{t}</span>)}</div>
         )}
-        <a href={href}>View project ↗</a>
+        <div className="project-links">
+          <a href={href}>View project ↗</a>
+          {project.liveUrl && (
+            <a href={project.liveUrl} target="_blank" rel="noopener">Visit site ↗</a>
+          )}
+        </div>
       </div>
     </article>
   );
