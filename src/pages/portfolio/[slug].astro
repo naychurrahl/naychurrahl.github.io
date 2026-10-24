@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPortfolio } from '../../lib/api';
+import { withSlugs } from '../../lib/slug';
+
+export async function getStaticPaths() {
+  const projects = withSlugs(await getPortfolio());
+  return projects.map((project) => ({ params: { slug: project.slug }, props: { project } }));
+}
+
+const { project } = Astro.props;
+---
+<BaseLayout
+  title={`${project.title} | Portfolio | Naychur Rahl`}
+  description={project.description.slice(0, 160)}
+  image={project.image ?? undefined}
+  imageAlt={project.title}
+>
+  <article class="section detail">
+    <div class="container narrow">
+      <a class="back-link" href="/portfolio/">← All projects</a>
+      <p class="eyebrow">{project.categories.join(' • ').toUpperCase()}</p>
+      <h1>{project.title}</h1>
+      <p class="detail-meta">
+        {project.client && <span>Client: {project.client}</span>}
+        {project.year > 0 && <span>{project.year}</span>}
+      </p>
+      {project.image && (
+        <img class="detail-image" src={project.image} alt={project.title} width="1200" height="630" />
+      )}
+      <p class="detail-lead">{project.description}</p>
+      {project.tags.length > 0 && <div class="tags">{project.tags.map((t) => <span>{t}</span>)}</div>}
+      <p class="detail-cta">
+        <a class="button primary" href="/#order">Start a project like this</a>
+        <a class="button secondary" href="/portfolio/">See more work</a>
+      </p>
+    </div>
+  </article>
+</BaseLayout>

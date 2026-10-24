@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import GalleryGrid from '../../components/GalleryGrid';
+import { usedCategories } from '../../components/Filters';
+import { getGallery, getCategories } from '../../lib/api';
+
+const images = await getGallery();
+const categories = usedCategories(await getCategories('gallery'), images);
+---
+<BaseLayout
+  title="Gallery | Naychur Rahl"
+  description="A visual look at our work, projects and the businesses we build for."
+>
+  <PageHero eyebrow="GALLERY" title="A closer look." intro="Images from our projects and the businesses we work with." />
+  <section class="section page-section">
+    <div class="container">
+      <GalleryGrid client:visible images={images} categories={categories} />
+    </div>
+  </section>
+</BaseLayout>

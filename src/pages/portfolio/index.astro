@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import PortfolioGrid from '../../components/PortfolioGrid';
+import { usedCategories } from '../../components/Filters';
+import { getPortfolio, getCategories } from '../../lib/api';
+import { withSlugs } from '../../lib/slug';
+
+const projects = withSlugs(await getPortfolio());
+const categories = usedCategories(await getCategories('portfolio'), projects);
+---
+<BaseLayout
+  title="Portfolio: Websites & Online Stores We've Built | Naychur Rahl"
+  description="Business websites, online stores and custom software we have built for retailers, companies and organisations."
+>
+  <PageHero
+    eyebrow="PORTFOLIO"
+    title="Work we're proud of."
+    intro="Websites, e-commerce platforms and digital products built for retailers, companies and organisations."
+  />
+  <section class="section work-section page-section">
+    <div class="container">
+      <PortfolioGrid client:visible projects={projects} categories={categories} />
+    </div>
+  </section>
+</BaseLayout>

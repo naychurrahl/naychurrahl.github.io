@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import { getSettings } from '../lib/api';
+
+// Placeholder copy from CMS settings until the final About text is supplied.
+const settings = await getSettings();
+---
+<BaseLayout
+  title="About Naychur Rahl LTD | Remote Web & E-commerce Team"
+  description="Naychur Rahl LTD is a remote team building business websites, online stores and custom software for startups, retailers and NGOs."
+>
+  <PageHero
+    eyebrow="ABOUT US"
+    title="A remote team building for real businesses."
+    intro="We build websites, online stores and custom software for startups, retailers and NGOs in Abuja, Lagos and worldwide."
+  />
+  <section class="section">
+    <div class="container narrow prose">
+      {settings.description && <p>{settings.description}</p>}
+    </div>
+  </section>
+  <section class="cta-section">
+    <div class="container cta">
+      <p class="eyebrow">HAVE A PROJECT IN MIND?</p>
+      <h2>Let's build something useful for your business.</h2>
+      <p>Tell us what you're trying to achieve. We can start with the problem and work out the right solution.</p>
+      <a class="button light" href="/#order">Order Now ↗</a>
+    </div>
+  </section>
+</BaseLayout>

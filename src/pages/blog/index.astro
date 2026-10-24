@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import BlogList from '../../components/BlogList';
+import { usedCategories } from '../../components/Filters';
+import { getBlog, getCategories } from '../../lib/api';
+import { withSlugs } from '../../lib/slug';
+
+// Content is left out of the list so it isn't shipped to the browser twice.
+const posts = withSlugs(await getBlog()).map(({ content, ...rest }) => rest);
+const categories = usedCategories(await getCategories('blog'), posts);
+---
+<BaseLayout
+  title="Blog: Websites, E-commerce & Growing Online | Naychur Rahl"
+  description="Practical articles on business websites, online stores, design and growing your business online."
+>
+  <PageHero
+    eyebrow="BLOG"
+    title="Notes on building online."
+    intro="Practical ideas on websites, online stores, design and growing a business online."
+  />
+  <section class="section page-section">
+    <div class="container">
+      <BlogList client:visible posts={posts} categories={categories} />
+    </div>
+  </section>
+</BaseLayout>
