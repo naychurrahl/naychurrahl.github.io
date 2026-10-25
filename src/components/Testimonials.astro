@@ -1,0 +1,23 @@
+---
+import type { Testimonial } from '../lib/api';
+
+interface Props {
+  testimonials: Testimonial[];
+}
+
+const { testimonials } = Astro.props;
+---
+{testimonials.length > 0 && (
+  <div class="testimonial-grid">
+    {testimonials.map((t) => (
+      <figure class="testimonial">
+        {t.rating ? <p class="rating" aria-label={`${t.rating} out of 5`}>{'★'.repeat(Math.round(t.rating))}</p> : null}
+        <blockquote>“{t.quote}”</blockquote>
+        <figcaption>
+          {t.avatar && <img src={t.avatar} alt="" width="44" height="44" loading="lazy" />}
+          <span><strong>{t.customerName}</strong>{t.roleCompany}</span>
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+)}

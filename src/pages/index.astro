@@ -1,10 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getPortfolio } from '../lib/api';
+import { API_URL, getPortfolio, getTestimonials } from '../lib/api';
 import { withSlugs } from '../lib/slug';
 import ProjectCard from '../components/ProjectCard';
+import Testimonials from '../components/Testimonials.astro';
 import { organization } from '../data/organization';
 
+const testimonials = await getTestimonials();
+// Order requests are also saved to the CMS (Enquiries) through this endpoint.
+const enquiryUrl = `${API_URL}/enquiries`;
 const projects = withSlugs(await getPortfolio());
 const featured = projects.filter((p) => p.featured);
 const selected = (featured.length >= 2 ? featured : projects).slice(0, 4);
@@ -199,6 +203,20 @@ const selected = (featured.length >= 2 ? featured : projects).slice(0, 4);
       </div>
     </section>
 
+    {testimonials.length > 0 && (
+      <section class="section testimonials-section">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">WHAT CLIENTS SAY</p>
+              <h2>Trusted by the businesses we build for.</h2>
+            </div>
+          </div>
+          <Testimonials testimonials={testimonials} />
+        </div>
+      </section>
+    )}
+
     <section class="section process-section" id="process">
       <div class="container">
         <div class="section-heading">
@@ -356,6 +374,9 @@ const selected = (featured.length >= 2 ? featured : projects).slice(0, 4);
             <input id="email" name="email" type="email" required>
           </div>
 
+          <!-- Spam trap: hidden from people, filled in by bots. -->
+          <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+
           <div class="form-actions">
             <button class="button primary" type="submit">Submit Order Request ↗</button>
             <p class="order-note">Submitting opens WhatsApp with your project details ready to send.</p>
@@ -373,7 +394,7 @@ const selected = (featured.length >= 2 ? featured : projects).slice(0, 4);
       </div>
     </section>
 
-  <script is:inline>
+  <script is:inline define:vars={{ enquiryUrl }}>
 const packageLinks = document.querySelectorAll("[data-package]");
 const packageSelect = document.querySelector("#package");
 
@@ -412,6 +433,19 @@ document.querySelector("#orderForm")?.addEventListener("submit", (event) => {
   ].join("\n");
 
   window.open(`https://wa.me/2348111384392?text=${encodeURIComponent(message)}`, "_blank", "noopener");
+
+  // Also save a copy to the CMS (Enquiries). Fire-and-forget: a "simple"
+  // text/plain request needs no CORS setup, and WhatsApp above already has
+  // everything if this fails.
+  try {
+    fetch(enquiryUrl, {
+      method: "POST",
+      mode: "no-cors",
+      keepalive: true,
+      headers: { "Content-Type": "text/plain" },
+      body: JSON.stringify(Object.fromEntries(form)),
+    }).catch(() => {});
+  } catch (e) {}
 });
   </script>
 </BaseLayout>

@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import ProjectCard from '../components/ProjectCard';
+import Testimonials from '../components/Testimonials.astro';
 import { getPortfolio, getTestimonials } from '../lib/api';
 import { withSlugs } from '../lib/slug';
 import { organization } from '../data/organization';
@@ -107,20 +108,7 @@ const aboutPage = {
         </>
       )}
 
-      {testimonials.length > 0 && (
-        <div class="testimonial-grid">
-          {testimonials.map((t) => (
-            <figure class="testimonial">
-              {t.rating ? <p class="rating" aria-label={`${t.rating} out of 5`}>{'★'.repeat(Math.round(t.rating))}</p> : null}
-              <blockquote>“{t.quote}”</blockquote>
-              <figcaption>
-                {t.avatar && <img src={t.avatar} alt="" width="44" height="44" loading="lazy" />}
-                <span><strong>{t.customerName}</strong>{t.roleCompany}</span>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-      )}
+      <Testimonials testimonials={testimonials} />
     </div>
   </section>
 

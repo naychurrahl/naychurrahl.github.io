@@ -1,7 +1,7 @@
 // Build-time access to the shared backend (same API the store uses).
 // Any failure throws, so an outage fails the build instead of publishing empty pages.
 
-const API_URL = (import.meta.env.API_URL || 'https://naystore.alwaysdata.net').replace(/\/+$/, '');
+export const API_URL = (import.meta.env.API_URL || 'https://naystore.alwaysdata.net').replace(/\/+$/, '');
 
 // Shapes mirror the backend mappers in naychurrahl/backend/Functions.php.
 export interface Project {
