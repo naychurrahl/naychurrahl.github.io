@@ -1249,3 +1249,15 @@ h3 {
 @media (max-width: 580px) {
   .values-grid, .team-grid, .about-work, .facts-row { grid-template-columns: 1fr; }
 }
+
+/* ---------- Home testimonials + order form spam trap ---------- */
+
+.testimonials-section .testimonial-grid { margin-top: 0; }
+
+.hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}

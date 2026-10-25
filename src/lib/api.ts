@@ -1,7 +1,7 @@
 // Build-time access to the shared backend (same API the store uses).
 // Any failure throws, so an outage fails the build instead of publishing empty pages.
 
-const API_URL = (import.meta.env.API_URL || 'https://naystore.alwaysdata.net').replace(/\/+$/, '');
+export const API_URL = (import.meta.env.API_URL || 'https://naystore.alwaysdata.net').replace(/\/+$/, '');
 
 // Shapes mirror the backend mappers in naychurrahl/backend/Functions.php.
 export interface Project {
@@ -108,8 +108,25 @@ function get<T>(path: string): Promise<T> {
   return cache.get(path) as Promise<T>;
 }
 
-// Any portfolio custom field whose value is an http(s) URL becomes a link,
-// labelled with the field's CMS label. "Live site"-like labels win liveUrl.
+const isUrl = (s: string) => /^https?:\/\/\S+$/i.test(s);
+
+// A textarea of links, one per line: "Label | https://…" or a bare URL
+// (labelled with its domain). Anything that isn't an http(s) URL is skipped.
+function parseLinkLines(text: string): ProjectLink[] {
+  const links: ProjectLink[] = [];
+  for (const line of text.split(/\r?\n/)) {
+    const [a, b] = line.split('|').map((s) => s.trim());
+    const url = b ?? a;
+    if (!url || !isUrl(url)) continue;
+    const label = b !== undefined && a ? a : new URL(url).hostname.replace(/^www\./, '');
+    links.push({ label, url });
+  }
+  return links;
+}
+
+// Portfolio custom fields (CMS "Live site", "Other links"…) become links:
+// a text field holding a URL is one link labelled with the field's name,
+// a textarea is parsed line by line. "Live site"-like labels win liveUrl.
 export async function getPortfolio(): Promise<Project[]> {
   const [rows, fields] = await Promise.all([
     get<Record<string, unknown>[]>('/portfolio'),
@@ -119,7 +136,10 @@ export async function getPortfolio(): Promise<Project[]> {
     const links: ProjectLink[] = [];
     for (const field of fields) {
       const value = row[field.key];
-      if (typeof value === 'string' && /^https?:\/\/\S+$/i.test(value.trim())) {
+      if (typeof value !== 'string') continue;
+      if (field.type === 'textarea') {
+        links.push(...parseLinkLines(value));
+      } else if (isUrl(value.trim())) {
         links.push({ label: field.label, url: value.trim() });
       }
     }
