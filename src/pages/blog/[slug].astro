@@ -18,6 +18,26 @@ export async function getStaticPaths() {
 
 const { post, related } = Astro.props;
 
+const url = new URL(Astro.url.pathname, Astro.site).href;
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.title.slice(0, 110),
+  description: post.excerpt,
+  ...(post.image ? { image: [post.image] } : {}),
+  datePublished: post.publishDate,
+  author: { '@type': 'Person', name: post.author },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Naychur Rahl LTD',
+    url: 'https://naychurrahl.com.ng/',
+    logo: { '@type': 'ImageObject', url: 'https://naychurrahl.com.ng/og-image.png' },
+  },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+  ...(post.categories.length ? { articleSection: post.categories[0] } : {}),
+  ...(post.tags.length ? { keywords: post.tags.join(', ') } : {}),
+};
+
 const content = sanitizeHtml(post.content, {
   allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'h1', 'h2', 'figure', 'figcaption']),
   allowedAttributes: {
@@ -32,6 +52,7 @@ const content = sanitizeHtml(post.content, {
   image={post.image ?? undefined}
   imageAlt={post.title}
   type="article"
+  jsonLd={articleLd}
 >
   <article class="section detail">
     <div class="container narrow">
