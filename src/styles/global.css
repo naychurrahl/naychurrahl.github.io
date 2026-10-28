@@ -713,6 +713,14 @@ h3 {
   margin-top: 5px;
 }
 
+.form-group small.is-error {
+  color: #c62828;
+}
+
+.form-group input[aria-invalid="true"] {
+  border-color: #c62828;
+}
+
 .form-group input,
 .form-group select,
 .form-group textarea {

@@ -282,7 +282,7 @@ const selected = (featured.length >= 2 ? featured : projects).slice(0, 4);
           <p>We'll turn your answers into a short scope document within 2 business days, followed by a contract with your chosen package, price and payment plan options.</p>
         </div>
 
-        <form class="order-form" id="orderForm">
+        <form class="order-form" id="orderForm" data-enquiry-url={enquiryUrl}>
           <div class="form-grid">
             <div class="form-group">
               <label for="brandName">Brand / business name *</label>
@@ -365,7 +365,8 @@ const selected = (featured.length >= 2 ? featured : projects).slice(0, 4);
             </div>
             <div class="form-group">
               <label for="phone">Phone / WhatsApp *</label>
-              <input id="phone" name="phone" required>
+              <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required aria-describedby="phoneHint">
+              <small id="phoneHint">Include the country code (like +44) if it isn't Nigerian.</small>
             </div>
           </div>
 
@@ -394,7 +395,7 @@ const selected = (featured.length >= 2 ? featured : projects).slice(0, 4);
       </div>
     </section>
 
-  <script is:inline define:vars={{ enquiryUrl }}>
+  <script is:inline>
 const packageLinks = document.querySelectorAll("[data-package]");
 const packageSelect = document.querySelector("#package");
 
@@ -409,10 +410,46 @@ packageLinks.forEach(link => {
   });
 });
 
-document.querySelector("#orderForm")?.addEventListener("submit", (event) => {
+  </script>
+
+  <script>
+import { parsePhoneNumberFromString } from "libphonenumber-js/min";
+
+const orderForm = document.querySelector<HTMLFormElement>("#orderForm");
+const phoneInput = document.querySelector<HTMLInputElement>("#phone");
+const phoneHint = document.querySelector<HTMLElement>("#phoneHint");
+const HINT = phoneHint?.textContent ?? "";
+
+// Numbers without a + are read as Nigerian; the backend checks them the
+// same way (Functions::normalizePhone).
+const readPhone = (raw: string) => {
+  const number = parsePhoneNumberFromString(raw.trim(), "NG");
+  return number?.isValid() ? number : null;
+};
+const showPhoneError = (bad: boolean) => {
+  if (!phoneInput || !phoneHint) return;
+  phoneInput.setAttribute("aria-invalid", bad ? "true" : "false");
+  phoneHint.classList.toggle("is-error", bad);
+  phoneHint.textContent = bad ? "That doesn't look like a valid phone number. " + HINT : HINT;
+};
+phoneInput?.addEventListener("input", () => {
+  if (phoneInput.getAttribute("aria-invalid") === "true" && readPhone(phoneInput.value)) showPhoneError(false);
+});
+
+orderForm?.addEventListener("submit", (event) => {
   event.preventDefault();
 
-  const form = new FormData(event.currentTarget);
+  const phone = readPhone(phoneInput?.value ?? "");
+  if (!phone) {
+    showPhoneError(true);
+    phoneInput?.focus();
+    return;
+  }
+  showPhoneError(false);
+
+  const form = new FormData(orderForm);
+  form.set("phone", phone.number);
+  const enquiryUrl = orderForm.dataset.enquiryUrl ?? "";
   const message = [
     "Naychur Rahl LTD - New Order Request",
     "",
@@ -428,7 +465,7 @@ document.querySelector("#orderForm")?.addEventListener("submit", (event) => {
     `Hosting: ${form.get("hosting") || "Not specified"}`,
     `Payment gateway: ${form.get("payment") || "Not specified"}`,
     `Target launch: ${form.get("launchDate") || "Not specified"}`,
-    `Phone / WhatsApp: ${form.get("phone")}`,
+    `Phone / WhatsApp: ${phone.formatInternational()}`,
     `Email: ${form.get("email")}`
   ].join("\n");
 
